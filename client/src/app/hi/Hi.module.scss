@@ -1,0 +1,13 @@
+.hiTomer {
+    color: purple;
+}
+
+.lol5 {
+    &-lol5 {
+        color: red;
+    }
+    color: red;
+    &-lol10 {
+        color: blue;
+    }
+}
