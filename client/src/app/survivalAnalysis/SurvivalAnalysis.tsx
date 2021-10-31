@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react";
 import { SurgeryStep } from "../../model/surgeryStep";
-import Form from "../form/Form";
+import FeatureSelect from "../featureSelect/FeatureSelect";
 import FormSelection from "../formSelection/FormSelection";
 import Logo from "../logo/Logo";
 import styles from "./SurvivalAnalysis.module.scss";
@@ -13,7 +13,7 @@ const SurvivalAnalysis: FC = () => {
       <div className={styles.innerMargin}>
         <Logo />
         <FormSelection onStepSelected={setSelectedSurgeryStep} />
-        {selectedSurgeryStep && <Form step={selectedSurgeryStep} />}
+        {selectedSurgeryStep && <FeatureSelect step={selectedSurgeryStep} />}
       </div>
     </div>
   );
