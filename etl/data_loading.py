@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 from configuration import config
 
 
@@ -12,6 +13,12 @@ def get_df_for_stage(stage):
         survival_analysis_df = survival_analysis_df[get_pre_df(desc_df, important_columns)]
     elif stage == "intra":
         survival_analysis_df = survival_analysis_df[get_intra_df(desc_df, important_columns)]
+    return survival_analysis_df
+
+
+def fix_bmi_column(survival_analysis_df):
+    survival_analysis_df["BMI"] = survival_analysis_df.apply(
+        lambda row: np.round(row["weight"] / (row["height"] / 100) ** 2), axis=1)
     return survival_analysis_df
 
 
@@ -45,7 +52,8 @@ def load_and_clean_survival_analysis_df():
     survival_analysis_df = pd.read_excel(config.survival_analysis_data_path)
     renamed_survival_analysis_df = rename_columns(survival_analysis_df)
     cleaned_survival_analysis_df = clean_nans(renamed_survival_analysis_df)
-    return cleaned_survival_analysis_df
+    fixed_bmi_survival_analysis_df = fix_bmi_column(cleaned_survival_analysis_df)
+    return fixed_bmi_survival_analysis_df
 
 
 def load_and_clean_desc_df():
