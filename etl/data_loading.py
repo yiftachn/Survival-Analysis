@@ -6,10 +6,6 @@ def load_data(path):
     df = pd.read_excel(path)
     return df
 
-def show_dataframe(df):
-    print(df.head())
-
-
 def rename_columns(survival_analysis_df):
     rename_columns = {"OS": "survival_time_in_months"}
     renamed_survival_analysis_df = survival_analysis_df.rename(columns=rename_columns) 
@@ -65,5 +61,3 @@ def get_df_for_stage(stage):
         return survival_analysis_df[get_pre_df(desc_df, important_columns)]
     if stage == "intra":
         return survival_analysis_df[get_intra_df(desc_df, important_columns)]
-
-
