@@ -4,7 +4,7 @@
   "main": "dist/electron/index.js",
   "scripts": {
     "dev": "concurrently \"yarn dev:vite\" \" yarn dev:electron\"",
-    "dev:vite": "concurrently \"yarn watch-generate-types\" \"vite\"",
+    "dev:vite": "concurrently \"vite\" \"yarn watch-generate-types\"",
     "dev:electron": "yarn build:electron && electron ./dist/electron",
     "build": "yarn build:vite & yarn build:electron",
     "build:vite": "vite build",
@@ -21,6 +21,7 @@
   "dependencies": {
     "@emotion/react": "^11.5.0",
     "@emotion/styled": "^11.3.0",
+    "@mui/icons-material": "^5.0.5",
     "@mui/material": "^5.0.6",
     "@mui/styles": "^5.0.2",
     "@vitejs/plugin-react": "^1.0.0",

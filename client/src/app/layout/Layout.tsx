@@ -17,11 +17,11 @@ const Layout: FC = ({ children }) => {
     });
 
     return (
-
         <ThemeProvider theme={themeOptions}>
-            <StylesProvider injectFirst>{children}</StylesProvider>
+            <StylesProvider injectFirst>
+                {children}
+            </StylesProvider>
         </ThemeProvider>
-
     );
 };
 
