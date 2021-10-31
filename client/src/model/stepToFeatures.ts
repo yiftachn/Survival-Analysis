@@ -1,9 +1,10 @@
+import { FeatureType, postSurgeryFeatures, preperationFeatures, surgeryFeatures } from "./featureMetadata";
 import { SurgeryStep } from "./surgeryStep";
 
-const stepToFeatures: { [_ in SurgeryStep]: string[] } = {
-    preparation: ["1", "2"],
-    surgery: ["1", "2", "3"],
-    postSurgery: ["1", "2"]
+const stepToFeatures: { [_ in SurgeryStep]: FeatureType[] } = {
+    preparation: preperationFeatures.map(_ => _),
+    surgery: surgeryFeatures.map(_ => _),
+    postSurgery: postSurgeryFeatures.map(_ => _)
 };
 
 export default stepToFeatures;
