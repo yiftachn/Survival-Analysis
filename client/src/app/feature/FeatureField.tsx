@@ -1,5 +1,5 @@
 import { Delete } from "@mui/icons-material";
-import { Autocomplete, TextField } from "@mui/material";
+import { Autocomplete, Box, TextField } from "@mui/material";
 import React, { FC, useEffect, useMemo, useState } from "react";
 import { featureToDetails, FeatureType } from "../../model/featureMetadata";
 
@@ -33,13 +33,14 @@ const FeatureField: FC<FeatureProps> = ({ feature, onValueChanged, onDelete }) =
     return (
         <>
             <div className={styles.container}>
-                <TextField
-                    label={featureDetails.name}
-                    onChange={handleFeatureValueChange}
-                    color={isValid ? "success" : "error"}
-                    inputProps={
-                        { startAdornment: <Delete onClick={deleteFeature} /> }
-                    } />
+                <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
+                    <Delete onClick={deleteFeature} sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
+                    <TextField
+                        label={featureDetails.name}
+                        onChange={handleFeatureValueChange}
+                        color={isValid ? "success" : "error"}
+                    />
+                </Box>
             </div>
 
         </>
