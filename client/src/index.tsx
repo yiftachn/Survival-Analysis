@@ -1,11 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import SurvivalAnalysis from "./app/survivalAnalysis/SurvivalAnalysis";
+import Layout from "./app/layout/Layout";
 
 ReactDOM.render(
   <React.StrictMode>
-    <SurvivalAnalysis />
+    <Layout />
   </React.StrictMode>,
   document.getElementById("root")
 );

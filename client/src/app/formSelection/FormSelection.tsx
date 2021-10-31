@@ -1,25 +1,26 @@
-import { InputLabel, MenuItem, Select } from "@material-ui/core";
+import { Button, ButtonGroup, FormControl, InputLabel, MenuItem, Select } from "@material-ui/core";
 import React, { FC, useState } from "react";
 import { stepToDisplayName, SurgeryStep } from "../../model/surgeryStep";
 import styles from "./FormSelection.module.scss";
 
 const FormSelection: FC = () => {
-    const [step, setStep] = useState<SurgeryStep>("preparation");
-
-    const handleStepSelection = (event: React.ChangeEvent<{ value: unknown }>) => {
-        setStep(event.target.value as SurgeryStep);
-    };
+    const [step, setStep] = useState<SurgeryStep>();
 
     return (
         <div className={styles.container}>
             <InputLabel>Surgery Step</InputLabel>
-            <Select value={step} label="Step" onChange={handleStepSelection}>
+            <ButtonGroup className={styles.select} fullWidth>
                 {Object.keys(stepToDisplayName).map((stepName: string) => (
-                    <MenuItem key={stepName} value={stepName}>
+                    <Button
+                        key={stepName}
+                        value={stepName}
+                        onClick={() => setStep(stepName as SurgeryStep)}
+                        variant={step === stepName ? "contained" : "outlined"}
+                    >
                         {stepToDisplayName[stepName as SurgeryStep]}
-                    </MenuItem>
+                    </Button>
                 ))}
-            </Select>
+            </ButtonGroup>
         </div>
     );
 };
