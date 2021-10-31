@@ -1,7 +1,9 @@
 .container {
-    margin: 1em 4em;
+    & div:not(:last-child) {
+        margin: 1em 0;
+    }
 }
 
 .select {
-    width: 100%;
+    color: white;
 }

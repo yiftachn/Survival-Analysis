@@ -1,24 +1,27 @@
-import { createTheme } from '@material-ui/core/styles';
-import { ThemeProvider } from '@material-ui/styles';
-import React, { FC } from 'react';
-import { red, blue } from 'material-ui/colors';
-import SurvivalAnalysis from '../survivalAnalysis/SurvivalAnalysis';
+import { createTheme, ThemeOptions, ThemeProvider } from "@mui/material/styles";
+import { StylesProvider } from "@mui/styles";
+import React, { FC } from "react";
 
 
-const Layout: FC = () => {
-    const myTheme = createTheme({
-
-        // Theme settings
+const Layout: FC = ({ children }) => {
+    const themeOptions: ThemeOptions = createTheme({
         palette: {
-            type: 'dark',
-            primary: red
+            mode: 'dark',
+            primary: {
+                main: "#f77990"
+            },
+            secondary: {
+                main: "#f50057"
+            }
         }
     });
 
     return (
-        <ThemeProvider theme={myTheme}>
-            <SurvivalAnalysis />
+
+        <ThemeProvider theme={themeOptions}>
+            <StylesProvider injectFirst>{children}</StylesProvider>
         </ThemeProvider>
+
     );
 };
 
