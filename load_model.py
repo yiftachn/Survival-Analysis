@@ -15,7 +15,7 @@ def order_data(data, order):
         vector.append(data[label])
     return vector
 
-
-data = json.loads(sys.argv[1])
-predict(data)
+if __name__ == '__main__':
+    data = json.loads(sys.argv[1])
+    predict(data)
 
