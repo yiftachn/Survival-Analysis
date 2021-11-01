@@ -1,46 +1,45 @@
 import { Delete } from "@mui/icons-material";
 import { Box, TextField, Tooltip } from "@mui/material";
 import React, { FC, useEffect, useMemo, useState } from "react";
-import { startCase } from "lodash";
 import { featureToDetails, FeatureType } from "../../model/featureMetadata";
 import styles from "./FeatureField.module.scss";
 import useErrorValidation from "../../hooks/useErrorValidation";
+import FeatureDetails from "../../model/featureDetails";
 
 interface FeatureProps {
-    feature: FeatureType;
+    feature: FeatureDetails;
     onValueChanged: (featureName: FeatureType, value: number | undefined) => void;
     onDelete: (featureName: FeatureType) => void;
 }
 
 const FeatureField: FC<FeatureProps> = ({ feature, onValueChanged, onDelete }) => {
-    const featureDetails = featureToDetails[feature];
     const [featureValue, setFeatureValue] = useState<string>("");
 
     const convertToNumber = (value: string) => {
         if (value === "")
             return undefined;
-        return featureDetails.toNumber ? featureDetails.toNumber(value) : parseFloat(value);
+        return feature.toNumber ? feature.toNumber(value) : parseFloat(value);
     }
 
     const handleFeatureValueChange = ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
         setFeatureValue(value);
 
         const valueAsNumber = convertToNumber(value);
-        onValueChanged(feature, valueAsNumber);
+        onValueChanged(feature.name, valueAsNumber);
     };
 
     const deleteFeature = () => {
-        onDelete(feature);
+        onDelete(feature.name);
     };
 
-    const [isValid, errorText] = useErrorValidation(featureDetails.validators, featureValue);
+    const [isValid, errorText] = useErrorValidation(feature.validators, featureValue);
 
     return (
         <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
             <TextField
                 fullWidth
                 value={featureValue}
-                label={startCase(featureDetails.name)}
+                label={feature.displayName}
                 onChange={handleFeatureValueChange}
                 helperText={errorText}
                 error={!isValid}

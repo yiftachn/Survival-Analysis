@@ -1,7 +1,9 @@
+import { FeatureType } from "./featureMetadata";
 import { Validator } from "./validators";
 
 type FeatureDetails = {
-    name: string;
+    name: FeatureType;
+    displayName: string;
     validators: Validator[];
     toNumber?: (value: string) => number;
 }
