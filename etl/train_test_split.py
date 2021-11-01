@@ -1,11 +1,15 @@
 import numpy as np
 from sklearn.model_selection import train_test_split
 from config import TRAIN_TEST_SPLIT_SEED
+from sklearn.impute import KNNImputer, SimpleImputer
 
 
 def impute_nan_values_and_split_to_train_test(df):
+    imputer = SimpleImputer()
     y_columns = ["death", "survival_time_in_months"]
     X = df.loc[:, ~df.columns.isin(y_columns)]
+    imputer.fit(X)
+    X = imputer.transform(X)
     y = df[y_columns].to_numpy()
     y = [(element1, element2) for element1, element2 in y]
     y = np.array(y, dtype=[("death", "?"), ("death_time", "<f8")])
