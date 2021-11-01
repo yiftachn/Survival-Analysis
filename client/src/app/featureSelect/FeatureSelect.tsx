@@ -1,9 +1,11 @@
-import { Autocomplete, Box, Button, TextField } from "@mui/material";
+import { Autocomplete, Box, TextField } from "@mui/material";
 import React, { FC, useEffect, useMemo, useState } from "react";
 import StringDictionary from "../../common/stringDictionary";
+import useRxSubscription from "../../hooks/useRxSubscription";
 import { FeatureType } from "../../model/featureMetadata";
 import stepToFeatures from "../../model/stepToFeatures";
 import { SurgeryStep } from "../../model/surgeryStep";
+import FormStore from "../../store/FormStore";
 import FeatureField from "../feature/FeatureField";
 import styles from "./FeatureSelect.module.scss";
 
@@ -12,19 +14,12 @@ interface FormProps {
 }
 
 const FeatureSelect: FC<FormProps> = ({ step }) => {
-    const [featureValues, setFeatureValues] = useState<StringDictionary<string>>();
+    const [featureValues, setFeatureValues] = useRxSubscription(FormStore.featureValues);
     const features = useMemo(() => stepToFeatures[step], [step]);
     const [usedFeatures, setUsedFeatures] = useState<FeatureType[]>([]);
 
     useEffect(() => {
-        const fillDictionary = (acc: StringDictionary<string>, feature: string) => {
-            acc[feature] = "";
-            return acc;
-        };
-
-        const emptyValues = features.reduce(fillDictionary, {} as StringDictionary<string>);
-
-        setFeatureValues(emptyValues);
+        setFeatureValues({} as StringDictionary<number>);
         setUsedFeatures([])
     }, [features]);
 
@@ -40,8 +35,14 @@ const FeatureSelect: FC<FormProps> = ({ step }) => {
         setUsedFeatures(usedFeatures.filter(f => f !== feature));
     };
 
-    const onFeatureValueChanged = (feature: FeatureType, value: string) => {
-        setFeatureValues({ ...featureValues, [feature]: value });
+    const onFeatureValueChanged = (feature: FeatureType, value: number | undefined) => {
+        if (value === undefined) {
+            const featureValuesWithoutValue = featureValues;
+            delete featureValuesWithoutValue[feature];
+            setFeatureValues(featureValuesWithoutValue);
+        } else {
+            setFeatureValues({ ...featureValues, [feature]: value });
+        }
     };
 
     return (
@@ -56,7 +57,7 @@ const FeatureSelect: FC<FormProps> = ({ step }) => {
                     options={avaliableFeatures}
                     clearOnEscape
                     onChange={onAutoselectSelected}
-                    renderInput={(params) => <TextField {...params} autoComplete="" label="Feature Name" />}
+                    renderInput={(params) => <TextField {...params} label="Feature Name" />}
                 />
             </div>
         </Box>

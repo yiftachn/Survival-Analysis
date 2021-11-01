@@ -3,12 +3,17 @@ export interface Validator {
     errorMessage: string;
 }
 
-export const IntValidator: Validator = {
-    validate: /^[0-9]+$/,
+export const FloatValidator: Validator = {
+    validate: /^[+-]?([0-9]*[.])?[0-9]+$/,
     errorMessage: 'Must be a number'
 }
 
-export const IsRequiredValidator: Validator = {
+export const RequiredValidator: Validator = {
     validate: /.+/,
     errorMessage: 'Required'
 }
+
+export const GenderValidator: Validator = {
+    validate: /^[MF]$/,
+    errorMessage: 'Must be M or F'
+};
