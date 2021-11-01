@@ -39,6 +39,7 @@ const FeatureField: FC<FeatureProps> = ({ feature, onValueChanged, onDelete }) =
                         label={featureDetails.name}
                         onChange={handleFeatureValueChange}
                         color={isValid ? "success" : "error"}
+                        variant="standard"
                     />
                 </Box>
             </div>
