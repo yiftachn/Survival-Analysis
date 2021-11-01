@@ -1,4 +1,4 @@
-program: wandb_hparams_search.py
+program: ./models/models.py
 method: bayes
 metric:
   name: concordance
@@ -10,3 +10,5 @@ parameters:
     values: [5, 10, 20]
   min_samples_leaf:
     values: [5, 15, 30]
+#  random_seed:
+#    values: [734]

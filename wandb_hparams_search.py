@@ -17,10 +17,12 @@ hyperparameter_defaults = dict(
 )
 
 
-def main():
-    wandb.init(project="survival_analysis", entity="adirdayan", config=hyperparameter_defaults)
-    config = wandb.config
 
+
+
+def main():
+    wandb.init(project="survival_analysis", entity="survival_analysis")
+    config = wandb.config
     df = get_df_for_stage('post')
     X_train, X_test, y_train, y_test = impute_nan_values_and_split_to_train_test(df)
     classifier = RandomSurvivalForest(**config)
