@@ -1,7 +1,9 @@
 import { Delete } from "@mui/icons-material";
 import { Autocomplete, Box, TextField } from "@mui/material";
 import React, { FC, useEffect, useMemo, useState } from "react";
+import { startCase } from "lodash";
 import { featureToDetails, FeatureType } from "../../model/featureMetadata";
+
 
 import styles from "./FeatureField.module.scss";
 
@@ -23,28 +25,23 @@ const FeatureField: FC<FeatureProps> = ({ feature, onValueChanged, onDelete }) =
         onDelete(feature);
     };
 
-    const isValid = useMemo(() => featureDetails.validation(featureValue), [featureValue]);
-
-    useEffect(() => {
-        if (isValid)
-            onValueChanged(feature, featureValue);
-    }, [isValid]);
+    const isInvalid = useMemo(() => {
+        return !featureDetails.validation(featureValue);
+    }, [featureValue]);
 
     return (
-        <>
-            <div className={styles.container}>
-                <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
-                    <Delete onClick={deleteFeature} sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
-                    <TextField
-                        label={featureDetails.name}
-                        onChange={handleFeatureValueChange}
-                        color={isValid ? "success" : "error"}
-                        variant="standard"
-                    />
-                </Box>
-            </div>
-
-        </>
+        <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
+            <TextField
+                fullWidth
+                value={featureValue}
+                label={startCase(featureDetails.name)}
+                onChange={handleFeatureValueChange}
+                error={isInvalid}
+                helperText={featureDetails.description}
+                variant="standard"
+            />
+            <Delete onClick={deleteFeature} className={styles.deleteIcon} sx={{ ml: 1, my: 3 }} />
+        </Box>
     );
 };
 

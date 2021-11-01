@@ -1,8 +1,12 @@
 .app {
-    background-color: #52575e;
-    height: 100%;
-}
+    background-color: #2f4858;
+    min-height: 100%;
 
-.innerMargin {
-    margin: 0em 4em;
+    .innerMargin {
+        margin: 0 3em;
+
+        .submitButton {
+            margin: 1em 0;
+        }
+    }
 }

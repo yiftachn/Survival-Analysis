@@ -1,4 +1,4 @@
-import { createTheme, ThemeOptions, ThemeProvider } from "@mui/material/styles";
+import { createTheme, StyledEngineProvider, ThemeOptions, ThemeProvider } from "@mui/material/styles";
 import { StylesProvider } from "@material-ui/styles";
 import React, { FC } from "react";
 
@@ -11,17 +11,22 @@ const Layout: FC = ({ children }) => {
                 main: "#f77990"
             },
             secondary: {
-                main: "#f50057"
+                main: "#9A69A0"
             }
+        },
+        typography: {
+            "fontFamily": `"Roboto", "Helvetica", "Arial", sans-serif`
         }
     });
 
     return (
-        <ThemeProvider theme={themeOptions}>
-            <StylesProvider injectFirst>
+        <StyledEngineProvider injectFirst>
+            <ThemeProvider theme={themeOptions}>
+
                 {children}
-            </StylesProvider>
-        </ThemeProvider>
+
+            </ThemeProvider>
+        </StyledEngineProvider>
     );
 };
 
