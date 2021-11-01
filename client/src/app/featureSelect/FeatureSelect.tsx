@@ -1,10 +1,11 @@
-import { Autocomplete, TextField } from "@mui/material";
+import { Autocomplete, Button, TextField } from "@mui/material";
 import React, { FC, useMemo, useState } from "react";
 import StringDictionary from "../../common/stringDictionary";
 import { FeatureType, featureToDetails } from "../../model/featureMetadata";
 import stepToFeatures from "../../model/stepToFeatures";
 import { SurgeryStep } from "../../model/surgeryStep";
 import FeatureField from "../feature/FeatureField";
+import styles from "./FeatureSelect.module.scss";
 
 interface FormProps {
     step: SurgeryStep;
@@ -27,7 +28,7 @@ const FeatureSelect: FC<FormProps> = ({ step }) => {
     };
 
     const handleRemove = (feature: FeatureType) => {
-        setUsedFeatures(usedFeatures.filter(f => f === feature));
+        setUsedFeatures(usedFeatures.filter(f => f !== feature));
     };
 
     const onFeatureValueChanged = (feature: FeatureType, value: string) => {
@@ -35,7 +36,7 @@ const FeatureSelect: FC<FormProps> = ({ step }) => {
     };
 
     return (
-        <>
+        <div className={styles.container}>
             {usedFeatures.map((feature: FeatureType) =>
                 <FeatureField key={feature} feature={feature} onValueChanged={onFeatureValueChanged} onDelete={handleRemove} />
             )}
@@ -46,7 +47,11 @@ const FeatureSelect: FC<FormProps> = ({ step }) => {
                 onChange={onAutoselectSelected}
                 renderInput={(params) => <TextField {...params} label="Feature Name" />}
             />
-        </>
+
+            <Button>
+                Bla
+            </Button>
+        </div>
     )
 };
 
