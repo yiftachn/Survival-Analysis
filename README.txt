@@ -1,0 +1,1 @@
+conda install -c sebp scikit-survival to ownload scikit-survival
