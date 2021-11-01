@@ -1,3 +1,5 @@
+from typing import List
+
 import pandas as pd
 import numpy as np
 import config
@@ -53,7 +55,28 @@ def load_and_clean_survival_analysis_df():
     renamed_survival_analysis_df = rename_columns(survival_analysis_df)
     cleaned_survival_analysis_df = clean_nans(renamed_survival_analysis_df)
     fixed_bmi_survival_analysis_df = fix_bmi_column(cleaned_survival_analysis_df)
-    return fixed_bmi_survival_analysis_df
+    fixed_object_cols_survival_analysis_df = _fix_object_columns(fixed_bmi_survival_analysis_df)
+    return fixed_object_cols_survival_analysis_df
+
+
+def _fix_object_columns(df: pd.DataFrame) -> pd.DataFrame:
+    object_cols = _get_object_columns(df)
+    for column in object_cols:
+        if column in {'T', 'M', 'N'}:
+            df[column] = df[column].map(lambda original_item: 0 if original_item == 'x' else original_item)
+        elif column == 'Severe Comp type':
+            df[column] = df[column].map(str).map(
+                lambda original_item: '3' if original_item[0] == '3' else original_item).map(
+                lambda original_item: int(original_item) if not original_item == 'nan' else np.nan)
+    return df
+
+
+def _get_object_columns(df: pd.DataFrame) -> List[str]:
+    object_cols = []
+    for i, dtype in enumerate(df.dtypes):
+        if np.issubdtype(dtype, object):
+            object_cols.append(df.dtypes.index[i])
+    return object_cols
 
 
 def load_and_clean_desc_df():
