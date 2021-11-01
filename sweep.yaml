@@ -1,0 +1,12 @@
+program: wandb_hparams_search.py
+method: bayes
+metric:
+  name: concordance
+  goal: maximize
+parameters:
+  n_estimators:
+    values: [100, 1000, 10000]
+  min_samples_split:
+    values: [5, 10, 20]
+  min_samples_leaf:
+    values: [5, 15, 30]

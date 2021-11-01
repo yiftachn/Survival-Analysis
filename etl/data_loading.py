@@ -1,12 +1,14 @@
+from typing import List
+
 import pandas as pd
 import numpy as np
-from configuration import config
+import config
 
 
 def get_df_for_stage(stage):
     survival_analysis_df = load_and_clean_survival_analysis_df()
     desc_df = load_and_clean_desc_df()
-    important_columns = ['record_id', 'survival_time_in_months', 'death']
+    important_columns = ['survival_time_in_months', 'death']
     if stage == "post":
         survival_analysis_df = survival_analysis_df[get_post_df(desc_df, important_columns)]
     elif stage == "pre":
@@ -17,6 +19,7 @@ def get_df_for_stage(stage):
 
 
 def fix_bmi_column(survival_analysis_df):
+    survival_analysis_df = survival_analysis_df.copy()
     survival_analysis_df["BMI"] = survival_analysis_df.apply(
         lambda row: np.round(row["weight"] / (row["height"] / 100) ** 2), axis=1)
     return survival_analysis_df
@@ -39,7 +42,7 @@ def remove_missing_features(desc_df):
 
 
 def remove_features_to_drop(features):
-    return [feature for feature in features if feature not in config.features_to_drop]
+    return [feature for feature in features if feature not in config.FEATURES_TO_DROP]
 
 
 def get_features_by_stage(desc_df, stage):
@@ -49,15 +52,36 @@ def get_features_by_stage(desc_df, stage):
 
 
 def load_and_clean_survival_analysis_df():
-    survival_analysis_df = pd.read_excel(config.survival_analysis_data_path)
+    survival_analysis_df = pd.read_excel(config.SURVIVAL_ANALYSIS_DATA_PATH)
     renamed_survival_analysis_df = rename_columns(survival_analysis_df)
     cleaned_survival_analysis_df = clean_nans(renamed_survival_analysis_df)
     fixed_bmi_survival_analysis_df = fix_bmi_column(cleaned_survival_analysis_df)
-    return fixed_bmi_survival_analysis_df
+    fixed_object_cols_survival_analysis_df = _fix_object_columns(fixed_bmi_survival_analysis_df)
+    return fixed_object_cols_survival_analysis_df
+
+
+def _fix_object_columns(df: pd.DataFrame) -> pd.DataFrame:
+    object_cols = _get_object_columns(df)
+    for column in object_cols:
+        if column in {'T', 'M', 'N'}:
+            df[column] = df[column].map(lambda original_item: 0 if original_item == 'x' else original_item)
+        elif column == 'Severe Comp type':
+            df[column] = df[column].map(str).map(
+                lambda original_item: '3' if original_item[0] == '3' else original_item).map(
+                lambda original_item: int(original_item) if not original_item == 'nan' else np.nan)
+    return df
+
+
+def _get_object_columns(df: pd.DataFrame) -> List[str]:
+    object_cols = []
+    for i, dtype in enumerate(df.dtypes):
+        if np.issubdtype(dtype, object):
+            object_cols.append(df.dtypes.index[i])
+    return object_cols
 
 
 def load_and_clean_desc_df():
-    desc_df = pd.read_excel(config.desc_data_path)
+    desc_df = pd.read_excel(config.DESC_DATA_PATH)
     desc_df = remove_missing_features(desc_df)
     return desc_df
 
