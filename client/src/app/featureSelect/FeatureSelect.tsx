@@ -1,8 +1,9 @@
-import { Autocomplete, Box, TextField } from "@mui/material";
+import { Autocomplete, TextField } from "@mui/material";
 import React, { FC, useEffect, useMemo, useState } from "react";
 import StringDictionary from "../../common/stringDictionary";
 import useRxSubscription from "../../hooks/useRxSubscription";
-import { FeatureType } from "../../model/featureMetadata";
+import FeatureDetails from "../../model/featureDetails";
+import { featureToDetails, FeatureType } from "../../model/featureMetadata";
 import stepToFeatures from "../../model/stepToFeatures";
 import { SurgeryStep } from "../../model/surgeryStep";
 import FormStore from "../../store/FormStore";
@@ -15,8 +16,8 @@ interface FormProps {
 
 const FeatureSelect: FC<FormProps> = ({ step }) => {
     const [featureValues, setFeatureValues] = useRxSubscription(FormStore.featureValues);
-    const features = useMemo(() => stepToFeatures[step], [step]);
-    const [usedFeatures, setUsedFeatures] = useState<FeatureType[]>([]);
+    const features = useMemo(() => stepToFeatures[step].map(_ => featureToDetails[_]), [step]);
+    const [usedFeatures, setUsedFeatures] = useState<FeatureDetails[]>([]);
 
     useEffect(() => {
         setFeatureValues({} as StringDictionary<number>);
@@ -25,14 +26,14 @@ const FeatureSelect: FC<FormProps> = ({ step }) => {
 
     const avaliableFeatures = useMemo(() => features.filter(_ => !usedFeatures.includes(_)), [features, usedFeatures]);
 
-    const onAutoselectSelected = (_: React.SyntheticEvent<Element, Event>, value: string | null) => {
+    const onAutoselectSelected = (_: React.SyntheticEvent<Element, Event>, value: FeatureDetails | null) => {
         if (value) {
-            setUsedFeatures([...usedFeatures, value as FeatureType]);
+            setUsedFeatures([...usedFeatures, value]);
         }
     };
 
     const handleRemove = (feature: FeatureType) => {
-        setUsedFeatures(usedFeatures.filter(f => f !== feature));
+        setUsedFeatures(usedFeatures.filter(_ => _.name !== feature));
     };
 
     const onFeatureValueChanged = (feature: FeatureType, value: number | undefined) => {
@@ -46,21 +47,20 @@ const FeatureSelect: FC<FormProps> = ({ step }) => {
     };
 
     return (
-        <Box component="form">
-            <div className={styles.container}>
-                {usedFeatures.map((feature: FeatureType) =>
-                    <FeatureField key={feature} feature={feature} onValueChanged={onFeatureValueChanged} onDelete={handleRemove} />
-                )}
+        <div className={styles.container}>
+            {usedFeatures.map((feature: FeatureDetails) =>
+                <FeatureField key={feature.name} feature={feature} onValueChanged={onFeatureValueChanged} onDelete={handleRemove} />
+            )}
 
-                <Autocomplete
-                    key={avaliableFeatures.length}
-                    options={avaliableFeatures}
-                    clearOnEscape
-                    onChange={onAutoselectSelected}
-                    renderInput={(params) => <TextField {...params} label="Feature Name" />}
-                />
-            </div>
-        </Box>
+            <Autocomplete
+                key={avaliableFeatures.length}
+                options={avaliableFeatures}
+                clearOnEscape
+                onChange={onAutoselectSelected}
+                getOptionLabel={(_: FeatureDetails) => _.displayName}
+                renderInput={(params) => <TextField {...params} label="Feature Name" />}
+            />
+        </div>
     )
 };
 
