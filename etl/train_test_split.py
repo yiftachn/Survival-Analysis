@@ -1,6 +1,6 @@
 import numpy as np
 from sklearn.model_selection import train_test_split
-from configuration.config import TRAIN_TEST_SPLIT_SEED
+from config import TRAIN_TEST_SPLIT_SEED
 
 
 def impute_nan_values_and_split_to_train_test(df):
