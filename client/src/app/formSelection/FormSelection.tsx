@@ -34,7 +34,6 @@ const FormSelection: FC<FormSelectionProps> = ({ onStepSelected }) => {
                         onClick={() => setStep(stepName as SurgeryStep)}
                         variant={step === stepName ? "contained" : "outlined"}
                         color="primary"
-                        className={styles.select}
                     >
                         {stepToDisplayName[stepName as SurgeryStep]}
                     </Button>
