@@ -26,6 +26,7 @@
     ],
     "rules": {
         "no-unused-vars": "off",
+        "lines-between-class-members": "off",
         // Prettier
         "prettier/prettier": "off",
         // Typescript

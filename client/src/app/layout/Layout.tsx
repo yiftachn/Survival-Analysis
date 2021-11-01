@@ -1,5 +1,4 @@
 import { createTheme, StyledEngineProvider, ThemeOptions, ThemeProvider } from "@mui/material/styles";
-import { StylesProvider } from "@material-ui/styles";
 import React, { FC } from "react";
 
 
