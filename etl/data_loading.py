@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from configuration import config
+import config
 
 
 def get_df_for_stage(stage):
@@ -39,7 +39,7 @@ def remove_missing_features(desc_df):
 
 
 def remove_features_to_drop(features):
-    return [feature for feature in features if feature not in config.features_to_drop]
+    return [feature for feature in features if feature not in config.FEATURES_TO_DROP]
 
 
 def get_features_by_stage(desc_df, stage):
@@ -49,7 +49,7 @@ def get_features_by_stage(desc_df, stage):
 
 
 def load_and_clean_survival_analysis_df():
-    survival_analysis_df = pd.read_excel(config.survival_analysis_data_path)
+    survival_analysis_df = pd.read_excel(config.SURVIVAL_ANALYSIS_DATA_PATH)
     renamed_survival_analysis_df = rename_columns(survival_analysis_df)
     cleaned_survival_analysis_df = clean_nans(renamed_survival_analysis_df)
     fixed_bmi_survival_analysis_df = fix_bmi_column(cleaned_survival_analysis_df)
@@ -57,7 +57,7 @@ def load_and_clean_survival_analysis_df():
 
 
 def load_and_clean_desc_df():
-    desc_df = pd.read_excel(config.desc_data_path)
+    desc_df = pd.read_excel(config.DESC_DATA_PATH)
     desc_df = remove_missing_features(desc_df)
     return desc_df
 
