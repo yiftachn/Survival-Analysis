@@ -1,11 +1,10 @@
-import { Delete } from "@mui/icons-material";
-import { Autocomplete, Box, TextField } from "@mui/material";
+import { Delete, Info } from "@mui/icons-material";
+import { Autocomplete, Box, TextField, Tooltip } from "@mui/material";
 import React, { FC, useEffect, useMemo, useState } from "react";
 import { startCase } from "lodash";
 import { featureToDetails, FeatureType } from "../../model/featureMetadata";
-
-
 import styles from "./FeatureField.module.scss";
+import useErrorValidation from "../../hooks/useErrorValidation";
 
 interface FeatureProps {
     feature: FeatureType;
@@ -19,28 +18,29 @@ const FeatureField: FC<FeatureProps> = ({ feature, onValueChanged, onDelete }) =
 
     const handleFeatureValueChange = ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
         setFeatureValue(value);
+        onValueChanged(feature, featureValue);
     };
 
     const deleteFeature = () => {
         onDelete(feature);
     };
 
-    const isInvalid = useMemo(() => {
-        return !featureDetails.validation(featureValue);
-    }, [featureValue]);
+    const [isValid, errorText] = useErrorValidation(featureDetails.validators, featureValue);
 
     return (
         <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
-            <TextField
-                fullWidth
-                value={featureValue}
-                label={startCase(featureDetails.name)}
-                onChange={handleFeatureValueChange}
-                error={isInvalid}
-                helperText={featureDetails.description}
-                variant="standard"
-            />
-            <Delete onClick={deleteFeature} className={styles.deleteIcon} sx={{ ml: 1, my: 3 }} />
+            <Tooltip title={featureDetails.description} placement="top-start">
+                <TextField
+                    fullWidth
+                    value={featureValue}
+                    label={startCase(featureDetails.name)}
+                    onChange={handleFeatureValueChange}
+                    helperText={errorText}
+                    error={!isValid}
+                    variant="standard"
+                />
+            </Tooltip>
+            <Delete onClick={deleteFeature} className={styles.deleteIcon} sx={{ ml: 1, my: isValid ? 0.5 : 3.5 }} />
         </Box>
     );
 };

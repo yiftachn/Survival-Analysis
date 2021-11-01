@@ -1,7 +1,9 @@
+import { Validator } from "./validators";
+
 type FeatureDetails = {
     name: string;
     description: string;
-    validation: (value: string) => boolean;
+    validators: Validator[];
 }
 
 export default FeatureDetails;
