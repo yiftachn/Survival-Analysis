@@ -19,6 +19,7 @@ def get_df_for_stage(stage):
 
 
 def fix_bmi_column(survival_analysis_df):
+    survival_analysis_df = survival_analysis_df.copy()
     survival_analysis_df["BMI"] = survival_analysis_df.apply(
         lambda row: np.round(row["weight"] / (row["height"] / 100) ** 2), axis=1)
     return survival_analysis_df

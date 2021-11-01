@@ -1,1 +1,2 @@
-conda install -c sebp scikit-survival to ownload scikit-survival
+-- to download scikit-survival
+conda install -c sebp scikit-survival
