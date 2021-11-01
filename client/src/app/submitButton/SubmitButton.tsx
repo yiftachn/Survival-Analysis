@@ -1,6 +1,6 @@
-import { Button } from '@mui/material';
+import { Button, Tooltip } from '@mui/material';
 import React, { FC } from 'react';
-import AnalyticsIcon from '@mui/icons-material/Analytics';
+import CalculateIcon from '@mui/icons-material/Calculate';
 import styles from './SubmitButton.module.scss';
 
 interface SubmitButtonProps {
@@ -10,18 +10,22 @@ interface SubmitButtonProps {
 
 const SubitButton: FC<SubmitButtonProps> = ({ onClick, disabled }) => {
     return (
-        <Button
-            variant="contained"
-            type="submit"
-            onClick={onClick}
-            disabled={disabled}
-            fullWidth
-            color="secondary"
-            className={styles.button}
-            endIcon={<AnalyticsIcon />}
-        >
-            Start Survival Analysis
-        </Button>
+        <Tooltip title={disabled ? "One of the parameters is invalid" : ""}>
+            <div>
+                <Button
+                    variant="contained"
+                    type="submit"
+                    onClick={onClick}
+                    disabled={disabled}
+                    fullWidth
+                    color="secondary"
+                    className={styles.button}
+                    endIcon={<CalculateIcon />}
+                >
+                    Start Survival Analysis
+                </Button>
+            </div>
+        </Tooltip>
     );
 };
 
