@@ -6,7 +6,7 @@ import config
 def get_df_for_stage(stage):
     survival_analysis_df = load_and_clean_survival_analysis_df()
     desc_df = load_and_clean_desc_df()
-    important_columns = ['record_id', 'survival_time_in_months', 'death']
+    important_columns = ['survival_time_in_months', 'death']
     if stage == "post":
         survival_analysis_df = survival_analysis_df[get_post_df(desc_df, important_columns)]
     elif stage == "pre":
