@@ -10,7 +10,7 @@ const useErrorValidation = (validators: Validator[], textToValidate: string): [b
         let error = "";
 
         const allValid = textToValidate.length === 0 || validators.every((validator) => {
-            const isRegexValid = validator.validate.test(textToValidate);
+            const isRegexValid = validator.validate(textToValidate);
             if (!isRegexValid) {
                 error = validator.errorMessage;
             }

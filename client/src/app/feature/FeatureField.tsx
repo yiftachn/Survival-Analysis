@@ -43,11 +43,11 @@ const FeatureField: FC<FeatureProps> = ({ feature, onValueChanged, onValidityCha
 
     return (
         <>
+            <InputLabel>{feature.displayName}</InputLabel>
             {feature.choices === undefined ?
                 <TextField
                     fullWidth
                     value={featureValue}
-                    label={feature.displayName}
                     onChange={handleFeatureValueChange}
                     helperText={errorText}
                     error={!isValid}
@@ -55,22 +55,21 @@ const FeatureField: FC<FeatureProps> = ({ feature, onValueChanged, onValidityCha
                     color={featureValue !== "" ? "success" : undefined}
                     focused={featureValue !== ""}
                 /> :
-                <div>
-                    <InputLabel id="demo-simple-select-label">{feature.displayName}</InputLabel>
-                    <Select
-                        fullWidth
-                        value={featureValue}
-                        onChange={handleFeatureValueSelected}
-                        error={!isValid}
-                        variant="outlined"
-                        color={featureValue !== "" ? "success" : undefined}
-                    >
-                        <MenuItem value=""><em>None</em></MenuItem>
-                        {feature.choices.map(choice => (
-                            <MenuItem key={choice} value={choice}>{choice}</MenuItem>
-                        ))}
-                    </Select>
-                </div>
+                <Select
+                    sx={{ color: "success" }}
+                    fullWidth
+                    value={featureValue}
+                    onChange={handleFeatureValueSelected}
+                    error={!isValid}
+                    variant="outlined"
+                    color={featureValue !== "" ? "success" : undefined}
+                    className={featureValue !== "" ? styles.selectSuccess : undefined}
+                >
+                    <MenuItem value=""><em>None</em></MenuItem>
+                    {feature.choices.map(choice => (
+                        <MenuItem key={choice} value={choice}>{choice}</MenuItem>
+                    ))}
+                </Select>
             }
         </>
     );

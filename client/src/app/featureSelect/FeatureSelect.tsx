@@ -1,4 +1,4 @@
-import { Autocomplete, TextField } from "@mui/material";
+import { Autocomplete, Box, Grid, TextField } from "@mui/material";
 import React, { FC, useEffect, useMemo, useState } from "react";
 import StringDictionary from "../../common/stringDictionary";
 import useRxSubscription from "../../hooks/useRxSubscription";
@@ -21,6 +21,12 @@ const FeatureSelect: FC<FormProps> = ({ step, onValidityChanged }) => {
 
     const features = useMemo(() => stepToFeatures[step].map(_ => featureToDetails[_]), [step]);
 
+    const removeUnusedFeatureValue = (feature: FeatureType) => {
+        const featureValuesWithoutValue = { ...featureValues } as StringDictionary<number>;
+        delete featureValuesWithoutValue[feature];
+        setFeatureValues(featureValuesWithoutValue);
+    }
+
     useEffect(() => {
         setFeatureValues({} as StringDictionary<number | undefined>);
         setFeatureValidities({} as StringDictionary<boolean>);
@@ -33,6 +39,8 @@ const FeatureSelect: FC<FormProps> = ({ step, onValidityChanged }) => {
     const onFeatureValueChanged = (feature: FeatureType, value: number | undefined) => {
         if (value !== undefined) {
             setFeatureValues({ ...featureValues, [feature]: value });
+        } else {
+            removeUnusedFeatureValue(feature);
         }
     };
 
@@ -43,15 +51,16 @@ const FeatureSelect: FC<FormProps> = ({ step, onValidityChanged }) => {
     }, [featuresValidity, step]);
 
     return (
-        <div className={styles.container}>
+        <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }} justifyContent="center">
             {features.map((feature: FeatureDetails) =>
-                <FeatureField
-                    key={feature.name}
-                    feature={feature}
-                    onValueChanged={onFeatureValueChanged}
-                    onValidityChanged={handleValidityChanged} />
+                <Grid item xs={4} sm={4} md={6} key={feature.name}>
+                    <FeatureField
+                        feature={feature}
+                        onValueChanged={onFeatureValueChanged}
+                        onValidityChanged={handleValidityChanged} />
+                </Grid>
             )}
-        </div>
+        </Grid>
     );
 };
 
