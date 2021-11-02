@@ -8,31 +8,20 @@ import FeatureDetails from "../../model/featureDetails";
 
 interface FeatureProps {
     feature: FeatureDetails;
-    onValueChanged: (featureName: FeatureType, value: number | undefined) => void;
+    featureValue: string;
+    setFeatureValue: (featureName: FeatureType, value: string) => void;
     onValidityChanged: (featureName: FeatureType, isValid: boolean) => void;
 }
 
-const FeatureField: FC<FeatureProps> = ({ feature, onValueChanged, onValidityChanged }) => {
-    const [featureValue, setFeatureValue] = useState<string>("");
-
-    const convertToNumber = (value: string) => {
-        if (value === "")
-            return undefined;
-        return feature.toNumber ? feature.toNumber(value) : parseFloat(value);
-    }
-
+const FeatureField: FC<FeatureProps> = ({ feature, featureValue, setFeatureValue, onValidityChanged }) => {
     const handleFeatureValueChange = ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
-        setFeatureValue(value);
-
-        const valueAsNumber = convertToNumber(value);
-        onValueChanged(feature.name, valueAsNumber);
+        const nullableValue = value === "" ? undefined : value;
+        setFeatureValue(feature.name, nullableValue);
     };
 
     const handleFeatureValueSelected = ({ target: { value } }: SelectChangeEvent<string>) => {
-        setFeatureValue(value);
-
-        const valueAsNumber = convertToNumber(value);
-        onValueChanged(feature.name, valueAsNumber);
+        const nullableValue = value === "" ? undefined : value;
+        setFeatureValue(feature.name, nullableValue);
     };
 
     const [isValid, errorText] = useErrorValidation(feature.validators, featureValue);

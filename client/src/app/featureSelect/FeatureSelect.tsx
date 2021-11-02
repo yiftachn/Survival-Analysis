@@ -22,13 +22,13 @@ const FeatureSelect: FC<FormProps> = ({ step, onValidityChanged }) => {
     const features = useMemo(() => stepToFeatures[step].map(_ => featureToDetails[_]), [step]);
 
     const removeUnusedFeatureValue = (feature: FeatureType) => {
-        const featureValuesWithoutValue = { ...featureValues } as StringDictionary<number>;
+        const featureValuesWithoutValue = { ...featureValues } as StringDictionary<string>;
         delete featureValuesWithoutValue[feature];
         setFeatureValues(featureValuesWithoutValue);
     }
 
     useEffect(() => {
-        setFeatureValues({} as StringDictionary<number>);
+        setFeatureValues({} as StringDictionary<string>);
         setFeatureValidities({} as StringDictionary<boolean>);
     }, [step]);
 
@@ -36,8 +36,8 @@ const FeatureSelect: FC<FormProps> = ({ step, onValidityChanged }) => {
         setFeatureValidities({ ...featuresValidity, [featureName]: isValid });
     };
 
-    const onFeatureValueChanged = (feature: FeatureType, value: number | undefined) => {
-        if (value !== undefined) {
+    const onFeatureValueChanged = (feature: FeatureType, value: string) => {
+        if (value !== "") {
             setFeatureValues({ ...featureValues, [feature]: value });
         } else {
             removeUnusedFeatureValue(feature);
@@ -58,7 +58,8 @@ const FeatureSelect: FC<FormProps> = ({ step, onValidityChanged }) => {
                 <Grid item xs={4} sm={4} md={6} key={feature.name}>
                     <FeatureField
                         feature={feature}
-                        onValueChanged={onFeatureValueChanged}
+                        featureValue={featureValues[feature.name] ?? ""}
+                        setFeatureValue={onFeatureValueChanged}
                         onValidityChanged={handleValidityChanged} />
                 </Grid>
             )}
