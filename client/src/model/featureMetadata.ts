@@ -1,5 +1,5 @@
 import FeatureDetails from "./featureDetails";
-import { FloatValidator, GenderValidator, RequiredValidator } from "./validators";
+import { FloatValidator, AgeValidator, WeightValidator } from "./validators";
 
 export const preperationFeatures = ["age", "gender", "weight", "BMI"] as const;
 export const surgeryFeatures = ["age"] as const;
@@ -11,17 +11,17 @@ export const featureToDetails: { [key in FeatureType]: FeatureDetails } = {
     age: {
         name: "age",
         displayName: "Age",
-        validators: [FloatValidator]
+        validators: [FloatValidator, AgeValidator]
     },
     height: {
         name: "height",
-        displayName: "Height",
+        displayName: "Height (m)",
         validators: [FloatValidator]
     },
     weight: {
         name: "weight",
-        displayName: "Weight",
-        validators: [FloatValidator]
+        displayName: "Weight (KG)",
+        validators: [FloatValidator, WeightValidator]
     },
     BMI: {
         name: "BMI",

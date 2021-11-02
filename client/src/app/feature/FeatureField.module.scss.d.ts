@@ -1,2 +1,2 @@
 export const container: string;
-export const deleteIcon: string;
+export const selectSuccess: string;
