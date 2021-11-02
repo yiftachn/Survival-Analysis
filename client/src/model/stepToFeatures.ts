@@ -2,9 +2,9 @@ import { FeatureType, postSurgeryFeatures, preperationFeatures, surgeryFeatures 
 import { SurgeryStep } from "./surgeryStep";
 
 const stepToFeatures: { [_ in SurgeryStep]: FeatureType[] } = {
-    preparation: preperationFeatures.map(_ => _),
-    surgery: surgeryFeatures.map(_ => _),
-    postSurgery: postSurgeryFeatures.map(_ => _)
+    pre: preperationFeatures.map(_ => _),
+    intra: surgeryFeatures.map(_ => _),
+    post: postSurgeryFeatures.map(_ => _)
 };
 
 export default stepToFeatures;

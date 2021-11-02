@@ -6,19 +6,30 @@ import SubmitButton from '../submitButton/SubmitButton';
 import styles from './SurvivalAnalysisForm.module.scss';
 
 const SurvivalAnalysisForm: FC = () => {
-    const [isValid, setIsValid] = useState(false);
+    const [areFeaturesValid, setAreFeaturesValid] = useState(false);
+    const [isFormSelectionValid, setIsFormSelectionValid] = useState(false);
     const [selectedSurgeryStep, setSelectedSurgeryStep] = useState<SurgeryStep>();
 
+    const formValid = areFeaturesValid && isFormSelectionValid;
+
     const onButtonClick = () => {
-        setIsValid(true);
+        setAreFeaturesValid(true);
+    };
+
+    const handleFeaturesValidity = (isValid: boolean) => {
+        setAreFeaturesValid(isValid);
+    };
+
+    const handleFormSelectionValidity = (isValid: boolean) => {
+        setIsFormSelectionValid(isValid);
     };
 
     return (
         <>
-            <FormSelection onStepSelected={setSelectedSurgeryStep} />
-            {selectedSurgeryStep && <FeatureSelect step={selectedSurgeryStep} />}
+            <FormSelection onStepSelected={setSelectedSurgeryStep} onValidityChanged={handleFormSelectionValidity} />
+            {selectedSurgeryStep && <FeatureSelect step={selectedSurgeryStep} onValidityChanged={handleFeaturesValidity} />}
             <div className={styles.submitButton}>
-                <SubmitButton disabled={!isValid} onClick={onButtonClick} />
+                <SubmitButton disabled={!formValid} onClick={onButtonClick} />
             </div>
         </>
     );
