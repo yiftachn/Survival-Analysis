@@ -11,28 +11,29 @@ export const featureToDetails: { [key in FeatureType]: FeatureDetails } = {
     age: {
         name: "age",
         displayName: "Age",
-        validators: [RequiredValidator, FloatValidator]
+        validators: [FloatValidator]
     },
     height: {
         name: "height",
         displayName: "Height",
-        validators: [RequiredValidator, FloatValidator]
+        validators: [FloatValidator]
     },
     weight: {
         name: "weight",
         displayName: "Weight",
-        validators: [RequiredValidator, FloatValidator]
+        validators: [FloatValidator]
     },
     BMI: {
         name: "BMI",
         displayName: "BMI",
-        validators: [RequiredValidator, FloatValidator]
+        validators: [FloatValidator]
     },
     gender: {
         name: "gender",
         displayName: "Gender",
-        validators: [RequiredValidator, GenderValidator],
-        toNumber: (value: string) => value === "M" ? 1 : 0
+        validators: [],
+        choices: ["Male", "Female"],
+        toNumber: (value: string) => value === "Male" ? 1 : 0
     }
 }
 

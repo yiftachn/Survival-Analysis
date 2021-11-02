@@ -6,6 +6,7 @@ type FeatureDetails = {
     displayName: string;
     validators: Validator[];
     toNumber?: (value: string) => number;
+    choices?: string[];
 }
 
 export default FeatureDetails;

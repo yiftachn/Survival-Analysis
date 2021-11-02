@@ -9,7 +9,7 @@ const useErrorValidation = (validators: Validator[], textToValidate: string): [b
     useEffect(() => {
         let error = "";
 
-        const allValid = validators.every((validator) => {
+        const allValid = textToValidate.length === 0 || validators.every((validator) => {
             const isRegexValid = validator.validate.test(textToValidate);
             if (!isRegexValid) {
                 error = validator.errorMessage;
