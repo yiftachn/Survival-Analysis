@@ -1,5 +1,5 @@
 import eslint from "vite-plugin-eslint";
-import react from "@vitejs/plugin-react-refresh";
+import react from "@vitejs/plugin-react";
 import checker from "vite-plugin-checker";
 import { UserConfig, ConfigEnv } from "vite";
 import { join } from "path";
