@@ -6,12 +6,11 @@ import FormStore from "../../store/FormStore";
 import styles from "./FormSelection.module.scss";
 
 interface FormSelectionProps {
-    onStepSelected: (step: SurgeryStep) => void;
     onValidityChanged: (isValid: boolean) => void;
 }
 
-const FormSelection: FC<FormSelectionProps> = ({ onStepSelected, onValidityChanged }) => {
-    const [step, setStep] = useState<SurgeryStep>();
+const FormSelection: FC<FormSelectionProps> = ({ onValidityChanged }) => {
+    const [step, setStep] = useRxSubscription(FormStore.surgeryStep)
     const [patientId, setPatientId] = useRxSubscription(FormStore.patientId);
 
     const isValid = useMemo(() => patientId !== "" && step !== undefined, [patientId, step]);
@@ -19,12 +18,6 @@ const FormSelection: FC<FormSelectionProps> = ({ onStepSelected, onValidityChang
     useEffect(() => {
         onValidityChanged(isValid);
     }, [isValid]);
-
-    useEffect(() => {
-        if (step !== undefined) {
-            onStepSelected(step);
-        }
-    }, [step]);
 
     const onPatientIdChanged = ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
         setPatientId(value);

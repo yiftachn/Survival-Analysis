@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import Logo from "../logo/Logo";
-import SurvivalAnalysisForm from "../survivalAnalysisForm/SurvivalAnalysisForm";
+import SurvivalAnalysisRouter from "../survivalAnalysisRouter/SurvivalAnalysisRouter";
 import styles from "./SurvivalAnalysis.module.scss";
 
 const SurvivalAnalysis: FC = () => {
@@ -8,7 +8,7 @@ const SurvivalAnalysis: FC = () => {
     <div className={styles.app}>
       <div className={styles.innerMargin}>
         <Logo />
-        <SurvivalAnalysisForm />
+        <SurvivalAnalysisRouter />
       </div>
     </div>
   );
