@@ -51,7 +51,7 @@ const FeatureSelect: FC<FormProps> = ({ step, onValidityChanged }) => {
     }, [featuresValidity, step]);
 
     return (
-        <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }} justifyContent="center">
+        <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }} className={styles.container} justifyContent="center">
             {features.map((feature: FeatureDetails) =>
                 <Grid item xs={4} sm={4} md={6} key={feature.name}>
                     <FeatureField
