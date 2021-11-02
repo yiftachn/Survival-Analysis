@@ -15,13 +15,11 @@ interface FeatureProps {
 
 const FeatureField: FC<FeatureProps> = ({ feature, featureValue, setFeatureValue, onValidityChanged }) => {
     const handleFeatureValueChange = ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
-        const nullableValue = value === "" ? undefined : value;
-        setFeatureValue(feature.name, nullableValue);
+        setFeatureValue(feature.name, value);
     };
 
     const handleFeatureValueSelected = ({ target: { value } }: SelectChangeEvent<string>) => {
-        const nullableValue = value === "" ? undefined : value;
-        setFeatureValue(feature.name, nullableValue);
+        setFeatureValue(feature.name, value);
     };
 
     const [isValid, errorText] = useErrorValidation(feature.validators, featureValue);
