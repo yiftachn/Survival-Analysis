@@ -14,6 +14,7 @@ def impute_nan_values(X_train, X_test):
 
 
 def fix_nans(df):
+    df = df.copy()
     for column in list(df.columns):
         df[column].fillna(df[column].median(), inplace=True)
     return df
