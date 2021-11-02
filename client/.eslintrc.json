@@ -25,6 +25,7 @@
         "prettier"
     ],
     "rules": {
+        "class-methods-use-this": "off",
         "no-unused-vars": "off",
         "lines-between-class-members": "off",
         // Prettier

@@ -3,13 +3,16 @@ import { Button } from '@mui/material';
 import React, { FC, useEffect, useState } from 'react';
 import Loader from 'react-loader-spinner';
 import { useHistory } from 'react-router-dom';
+import useAsyncEffect from 'use-async-effect';
 import useRxSubscription from '../../hooks/useRxSubscription';
+import SurvivalCalculator from '../../logic/survivalCalculator';
 import FormStore from '../../store/FormStore';
 import styles from "./LoadingScreen.module.scss";
 
 const LoadingScreen: FC = () => {
     // @ts-ignore
     const { palette } = useTheme();
+    const survivalCalculator = SurvivalCalculator.getInstance();
     const [dotNumbers, setDotNumbers] = useState(0);
     const [patientId] = useRxSubscription(FormStore.patientId);
     const history = useHistory();
@@ -28,6 +31,11 @@ const LoadingScreen: FC = () => {
     const clickGoBack = () => {
         history.push('/');
     };
+
+    useAsyncEffect(async () => {
+        await survivalCalculator.calculateSurvival();
+        history.push('/result');
+    }, [patientId]);
 
     return (
         <div className={styles.container}>

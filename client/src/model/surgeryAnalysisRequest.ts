@@ -3,7 +3,7 @@ import { SurgeryStep } from "./surgeryStep";
 
 interface SurgeryAnalysisRequest {
     surgeryStep: SurgeryStep;
-    features: StringDictionary<string | null>;
+    features: StringDictionary<number>;
 }
 
 
