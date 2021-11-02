@@ -28,7 +28,7 @@ const FeatureSelect: FC<FormProps> = ({ step, onValidityChanged }) => {
     }
 
     useEffect(() => {
-        setFeatureValues({} as StringDictionary<number | undefined>);
+        setFeatureValues({} as StringDictionary<number>);
         setFeatureValidities({} as StringDictionary<boolean>);
     }, [step]);
 
@@ -44,11 +44,13 @@ const FeatureSelect: FC<FormProps> = ({ step, onValidityChanged }) => {
         }
     };
 
+    const numOfFilledFeatures = useMemo(() => Object.keys(featureValues).length, [featureValues]);
+
     useEffect(() => {
         const validities = Object.values(featuresValidity);
-        const isValid = validities.length > 0 && validities.every(_ => _);
+        const isValid = numOfFilledFeatures > 0 && validities.every(_ => _);
         onValidityChanged(isValid);
-    }, [featuresValidity, step]);
+    }, [featuresValidity, step, numOfFilledFeatures]);
 
     return (
         <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }} className={styles.container} justifyContent="center">

@@ -14,7 +14,7 @@ const FormSelection: FC<FormSelectionProps> = ({ onStepSelected, onValidityChang
     const [step, setStep] = useState<SurgeryStep>();
     const [patientId, setPatientId] = useRxSubscription(FormStore.patientId);
 
-    const isValid = useMemo(() => patientId !== "" && step !== undefined, [patientId]);
+    const isValid = useMemo(() => patientId !== "" && step !== undefined, [patientId, step]);
 
     useEffect(() => {
         onValidityChanged(isValid);

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { Validator } from "../model/validators";
 
 const useErrorValidation = (validators: Validator[], textToValidate: string): [boolean, string] => {
-    const [isValid, setIsValid] = useState<boolean>(true);
+    const [isValid, setIsValid] = useState<boolean>(false);
     const [errorText, setErrorText] = useState<string>("");
 
     useEffect(() => {
