@@ -5,6 +5,7 @@ import Loader from 'react-loader-spinner';
 import { useHistory } from 'react-router-dom';
 import useAsyncEffect from 'use-async-effect';
 import useRxSubscription from '../../hooks/useRxSubscription';
+import SurvivalAnalysisRequestCreator from '../../logic/survivalAnalysisRequestCreator';
 import SurvivalCalculator from '../../logic/survivalCalculator';
 import FormStore from '../../store/FormStore';
 import styles from "./LoadingScreen.module.scss";
@@ -12,6 +13,7 @@ import styles from "./LoadingScreen.module.scss";
 const LoadingScreen: FC = () => {
     // @ts-ignore
     const { palette } = useTheme();
+    const requestCreator = SurvivalAnalysisRequestCreator.getInstance();
     const survivalCalculator = SurvivalCalculator.getInstance();
     const [dotNumbers, setDotNumbers] = useState(0);
     const [patientId] = useRxSubscription(FormStore.patientId);
@@ -32,10 +34,19 @@ const LoadingScreen: FC = () => {
         history.push('/');
     };
 
-    useAsyncEffect(async () => {
-        await survivalCalculator.calculateSurvival();
-        history.push('/result');
-    }, [patientId]);
+    useAsyncEffect(async (isMounted: () => boolean) => {
+        try {
+            const request = requestCreator.createRequest();
+            const response = await survivalCalculator.calculateSurvival(request);
+            console.log(response);
+            if (isMounted())
+                history.push('/result');
+        }
+        catch (ex: any) {
+            window.alert(`Error calculating survival, reason: ${ex.message}`);
+            throw ex;
+        }
+    }, [survivalCalculator, requestCreator, history]);
 
     return (
         <div className={styles.container}>

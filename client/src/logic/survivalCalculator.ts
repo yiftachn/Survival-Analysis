@@ -1,5 +1,8 @@
+import { execFile } from 'child_process';
+
 import SurgeryAnalysisRequest from "../model/surgeryAnalysisRequest";
-import FormStore from "../store/FormStore";
+
+
 
 class SurvivalCalculator {
     private static instance: SurvivalCalculator;
@@ -16,24 +19,17 @@ class SurvivalCalculator {
         return SurvivalCalculator.instance;
     }
 
-    private createRequest = () => {
-        const surgeryStep = FormStore.surgeryStep.value;
+    public calculateSurvival = async (request: SurgeryAnalysisRequest): Promise<string> => {
+        const requestAsJson = JSON.stringify(request).replaceAll("\"", "\\\"");
+        // await new Promise(resolve => setTimeout(resolve, 3000));
 
-        if (surgeryStep === undefined)
-            throw new Error("Surgery step is undefined");
 
-        const request: SurgeryAnalysisRequest = {
-            surgeryStep,
-            features: FormStore.featureValues.value
-        };
 
-        return request;
-    }
-
-    public calculateSurvival = async () => {
-        const request = this.createRequest();
-        await new Promise(resolve => setTimeout(resolve, 3000));
-        return Promise.resolve(200);
+        await execFile("./resources/lol.exe", (err: any, data: any) => {
+            console.log(err);
+            console.log(data.toString());
+        });
+        return Promise.resolve(requestAsJson);
     }
 }
 
