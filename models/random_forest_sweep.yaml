@@ -1,7 +1,7 @@
-program: ./models/models.py
+program: ./models/random_forest_model.py
 method: bayes
 metric:
-  name: concordance
+  name: negative_brier
   goal: maximize
 parameters:
   n_estimators:
@@ -10,5 +10,7 @@ parameters:
     values: [5, 10, 20]
   min_samples_leaf:
     values: [5, 15, 30]
-#  random_seed:
-#    values: [734]
+  random_seed:
+    values: [734,435,2562]
+  dataset:
+    values: ['intra','post']
