@@ -1,7 +1,7 @@
 import { Delete } from "@mui/icons-material";
-import { Box, TextField, Tooltip } from "@mui/material";
-import React, { FC, useEffect, useMemo, useState } from "react";
-import { featureToDetails, FeatureType } from "../../model/featureMetadata";
+import { Box, TextField } from "@mui/material";
+import React, { FC, useEffect, useState } from "react";
+import { FeatureType } from "../../model/featureMetadata";
 import styles from "./FeatureField.module.scss";
 import useErrorValidation from "../../hooks/useErrorValidation";
 import FeatureDetails from "../../model/featureDetails";
@@ -10,9 +10,10 @@ interface FeatureProps {
     feature: FeatureDetails;
     onValueChanged: (featureName: FeatureType, value: number | undefined) => void;
     onDelete: (featureName: FeatureType) => void;
+    onValidityChanged: (featureName: FeatureType, isValid: boolean) => void;
 }
 
-const FeatureField: FC<FeatureProps> = ({ feature, onValueChanged, onDelete }) => {
+const FeatureField: FC<FeatureProps> = ({ feature, onValueChanged, onDelete, onValidityChanged }) => {
     const [featureValue, setFeatureValue] = useState<string>("");
 
     const convertToNumber = (value: string) => {
@@ -33,6 +34,10 @@ const FeatureField: FC<FeatureProps> = ({ feature, onValueChanged, onDelete }) =
     };
 
     const [isValid, errorText] = useErrorValidation(feature.validators, featureValue);
+
+    useEffect((): void => {
+        onValidityChanged(feature.name, isValid);
+    }, [feature.name, isValid]);
 
     return (
         <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
