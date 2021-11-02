@@ -11,7 +11,10 @@ const Layout: FC = ({ children }) => {
             },
             secondary: {
                 main: "#9A69A0"
-            }
+            },
+            success: {
+                main: "#4CAF50"
+            },
         },
         typography: {
             "fontFamily": `"Roboto", "Helvetica", "Arial", sans-serif`
@@ -21,9 +24,7 @@ const Layout: FC = ({ children }) => {
     return (
         <StyledEngineProvider injectFirst>
             <ThemeProvider theme={themeOptions}>
-
                 {children}
-
             </ThemeProvider>
         </StyledEngineProvider>
     );

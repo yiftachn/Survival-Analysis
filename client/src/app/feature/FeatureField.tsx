@@ -1,5 +1,5 @@
 import { Delete } from "@mui/icons-material";
-import { Box, TextField } from "@mui/material";
+import { Box, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
 import React, { FC, useEffect, useState } from "react";
 import { FeatureType } from "../../model/featureMetadata";
 import styles from "./FeatureField.module.scss";
@@ -9,11 +9,10 @@ import FeatureDetails from "../../model/featureDetails";
 interface FeatureProps {
     feature: FeatureDetails;
     onValueChanged: (featureName: FeatureType, value: number | undefined) => void;
-    onDelete: (featureName: FeatureType) => void;
     onValidityChanged: (featureName: FeatureType, isValid: boolean) => void;
 }
 
-const FeatureField: FC<FeatureProps> = ({ feature, onValueChanged, onDelete, onValidityChanged }) => {
+const FeatureField: FC<FeatureProps> = ({ feature, onValueChanged, onValidityChanged }) => {
     const [featureValue, setFeatureValue] = useState<string>("");
 
     const convertToNumber = (value: string) => {
@@ -29,8 +28,11 @@ const FeatureField: FC<FeatureProps> = ({ feature, onValueChanged, onDelete, onV
         onValueChanged(feature.name, valueAsNumber);
     };
 
-    const deleteFeature = () => {
-        onDelete(feature.name);
+    const handleFeatureValueSelected = ({ target: { value } }: SelectChangeEvent<string>) => {
+        setFeatureValue(value);
+
+        const valueAsNumber = convertToNumber(value);
+        onValueChanged(feature.name, valueAsNumber);
     };
 
     const [isValid, errorText] = useErrorValidation(feature.validators, featureValue);
@@ -40,18 +42,37 @@ const FeatureField: FC<FeatureProps> = ({ feature, onValueChanged, onDelete, onV
     }, [feature.name, isValid]);
 
     return (
-        <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
-            <TextField
-                fullWidth
-                value={featureValue}
-                label={feature.displayName}
-                onChange={handleFeatureValueChange}
-                helperText={errorText}
-                error={!isValid}
-                variant="standard"
-            />
-            <Delete onClick={deleteFeature} className={styles.deleteIcon} sx={{ ml: 1, my: isValid ? 0.5 : 3.5 }} />
-        </Box>
+        <>
+            {feature.choices === undefined ?
+                <TextField
+                    fullWidth
+                    value={featureValue}
+                    label={feature.displayName}
+                    onChange={handleFeatureValueChange}
+                    helperText={errorText}
+                    error={!isValid}
+                    variant="outlined"
+                    color={featureValue !== "" ? "success" : undefined}
+                    focused={featureValue !== ""}
+                /> :
+                <div>
+                    <InputLabel id="demo-simple-select-label">{feature.displayName}</InputLabel>
+                    <Select
+                        fullWidth
+                        value={featureValue}
+                        onChange={handleFeatureValueSelected}
+                        error={!isValid}
+                        variant="outlined"
+                        color={featureValue !== "" ? "success" : undefined}
+                    >
+                        <MenuItem value=""><em>None</em></MenuItem>
+                        {feature.choices.map(choice => (
+                            <MenuItem key={choice} value={choice}>{choice}</MenuItem>
+                        ))}
+                    </Select>
+                </div>
+            }
+        </>
     );
 };
 
