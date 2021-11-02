@@ -15,5 +15,7 @@ if __name__ == "__main__":
     classifier.fit(X_train, y_train)
     scores = classifier.score(X_test, y_test)
     print(scores)
+    pre_features = ['age', 'gender', 'weight', 'height', 'BMI', 'DM', 'Renal', 'IHD',
+       'survival_time_in_months', 'death']
     # scores = cross_val_score(classifier, X_train, y_train, cv=10)
     # print(np.mean(scores), scores)
