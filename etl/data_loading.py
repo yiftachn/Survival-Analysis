@@ -18,6 +18,19 @@ def get_df_for_stage(stage):
     return survival_analysis_df
 
 
+def kupitz_get_df_for_stage(stage):
+    survival_analysis_df = load_and_clean_survival_analysis_df()
+    desc_df = load_and_clean_desc_df()
+    important_columns = ['survival_time_in_months', 'death']
+    if stage == "post":
+        survival_analysis_df = survival_analysis_df[get_post_df(desc_df, important_columns, kupitz=True)]
+    elif stage == "pre":
+        survival_analysis_df = survival_analysis_df[get_pre_df(desc_df, important_columns, kupitz=True)]
+    elif stage == "intra":
+        survival_analysis_df = survival_analysis_df[get_intra_df(desc_df, important_columns, kupitz=True)]
+    return survival_analysis_df
+
+
 def fix_bmi_column(survival_analysis_df):
     survival_analysis_df = survival_analysis_df.copy()
     survival_analysis_df["BMI"] = survival_analysis_df.apply(
@@ -43,12 +56,18 @@ def remove_missing_features(desc_df):
 
 def remove_features_to_drop(features):
     return [feature for feature in features if
-            feature not in config.FEATURES_TO_DROP and feature in config.FEATURES_TO_KEEP]
+            feature not in config.FEATURES_TO_DROP]
 
 
-def get_features_by_stage(desc_df, stage):
+def select_only_config_features(features):
+    return [feature for feature in features if feature in config.FEATURES_TO_KEEP]
+
+
+def get_features_by_stage(desc_df, stage, kupitz=False):
     features = list(desc_df[desc_df['Unnamed: 7'] == stage]['record_id'])
     features = remove_features_to_drop(features)
+    if not kupitz:
+        features = select_only_config_features(features)
     return features
 
 
@@ -87,21 +106,21 @@ def load_and_clean_desc_df():
     return desc_df
 
 
-def get_pre_df(desc_df, important_columns):
-    pre_features = get_features_by_stage(desc_df, 'pre')
+def get_pre_df(desc_df, important_columns, kupitz=False):
+    pre_features = get_features_by_stage(desc_df, 'pre', kupitz)
     pre_df_features = pre_features + important_columns
     return pre_df_features
 
 
-def get_intra_df(desc_df, important_columns):
-    intra_features = get_features_by_stage(desc_df, 'intra')
+def get_intra_df(desc_df, important_columns, kupitz=False):
+    intra_features = get_features_by_stage(desc_df, 'intra', kupitz)
     pre_df_features = get_pre_df(desc_df, important_columns)
     intra_df_features = pre_df_features + intra_features
     return intra_df_features
 
 
-def get_post_df(desc_df, important_columns):
-    post_features = get_features_by_stage(desc_df, 'post')
+def get_post_df(desc_df, important_columns, kupitz=False):
+    post_features = get_features_by_stage(desc_df, 'post', kupitz)
     intra_df_features = get_intra_df(desc_df, important_columns)
     post_df_features = intra_df_features + post_features
     return post_df_features
