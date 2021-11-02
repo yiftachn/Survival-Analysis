@@ -5,11 +5,18 @@ from sklearn.impute import KNNImputer, SimpleImputer
 
 
 def impute_nan_values(X_train, X_test):
-    imputer = SimpleImputer()
-    imputer.fit(X_train)
-    imputed_X_train = imputer.transform(X_train)
-    imputed_X_test = imputer.transform(X_test)
-    return imputed_X_train, imputed_X_test
+    # imputer = SimpleImputer()
+    # imputer.fit(X_train)
+    # imputed_X_train = imputer.transform(X_train)
+    # imputed_X_test = imputer.transform(X_test)
+    # return imputed_X_train, imputed_X_test
+    return fix_nans(X_train), fix_nans(X_test)
+
+
+def fix_nans(df):
+    for column in list(df.columns):
+        df[column].fillna(df[column].median(), inplace=True)
+    return df
 
 
 def impute_nan_values_and_split_to_train_test(df):
