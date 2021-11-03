@@ -109,9 +109,14 @@ def get_intra_df(desc_df, important_columns):
     return intra_df_features
 
 
-def get_post_df(desc_df, important_columns):
+def get_post_df(desc_df, important_columns, kupitz=False):
     post_features = get_features_by_stage(desc_df, 'post')
     intra_df_features = get_intra_df(desc_df, important_columns)
     post_df_features = intra_df_features + post_features
-    post_df_features = [feature for feature in post_df_features if feature in config.POST_FEATURES_TO_KEEP] + important_columns
+    if not kupitz:
+        post_df_features = [feature for feature in post_df_features if feature in config.POST_FEATURES_TO_KEEP] + important_columns
+    else:
+        for feature in important_columns:
+            if feature not in post_df_features:
+                post_df_features.append(feature)
     return post_df_features
