@@ -14,13 +14,13 @@ from flask_cors import CORS, cross_origin
 logger = getLogger("logger")
 port = int(os.environ.get("PORT", 5000))
 # Load the trained model from current directory
-with open(PROJECT_ROOT_DIR / 'pre.pkl', 'rb') as model_pkl:
+with open(PROJECT_ROOT_DIR / 'configuration/pre.pkl', 'rb') as model_pkl:
     pre = pickle.load(model_pkl)
 
-with open(PROJECT_ROOT_DIR / 'intra.pkl', 'rb') as model_pkl:
+with open(PROJECT_ROOT_DIR / 'configuration/intra.pkl', 'rb') as model_pkl:
     intra = pickle.load(model_pkl)
 
-with open(PROJECT_ROOT_DIR / 'post.pkl', 'rb') as model_pkl:
+with open(PROJECT_ROOT_DIR / 'configuration/post.pkl', 'rb') as model_pkl:
     post = pickle.load(model_pkl)
 
 models = {
