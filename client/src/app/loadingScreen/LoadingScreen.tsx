@@ -48,12 +48,11 @@ const LoadingScreen: FC = () => {
     useAsyncEffect(async (isMounted: () => boolean) => {
         try {
             const request = requestCreator.createRequest();
-            const response = await survivalCalculator.calculateSurvival(request);
+            // const response = await survivalCalculator.calculateSurvival(request);
             const enrichedScatterPoints = graphLogic.getEnrichedSctterPoints(mockedScatterPoints);
             console.log(enrichedScatterPoints);
             GraphStore.enrichedScatterPoints.next(enrichedScatterPoints);
-
-            console.log(response);
+            // console.log(response);
            
             if (isMounted())
                 history.push('/result');
