@@ -2,7 +2,8 @@ import React, { FC } from 'react';
 import {
     BrowserRouter as Router,
     Switch,
-    Route
+    Route,
+    Redirect
 } from "react-router-dom";
 import GraphPanel from '../graphs/GraphPanel';
 import LoadingScreen from '../loadingScreen/LoadingScreen';
@@ -21,6 +22,7 @@ const SurvivalAnalysisRouter: FC = () => {
                 <Route path="/result">
                     <GraphPanel />
                 </Route>
+                <Route render={() => <Redirect to="/" />} />
             </Switch>
         </Router>
     )

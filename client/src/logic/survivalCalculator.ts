@@ -1,4 +1,6 @@
+import axios from "axios";
 import SurgeryAnalysisRequest from "../model/surgeryAnalysisRequest";
+
 
 class SurvivalCalculator {
     private static instance: SurvivalCalculator;
@@ -15,10 +17,19 @@ class SurvivalCalculator {
         return SurvivalCalculator.instance;
     }
 
-    public calculateSurvival = async (request: SurgeryAnalysisRequest): Promise<string> => {
-        const requestAsJson = JSON.stringify(request).replaceAll("\"", "\\\"");
+    public calculateSurvival = async (request: SurgeryAnalysisRequest): Promise<any> => {
+        const response = await axios.get(`http://localhost:5000/predict`, {
+            params: {
+                weight: request.features.weight,
+                gender: request.features.gender,
+                age: request.features.age
+            },
+            headers: {
+                "Access-Control-Allow-Origin": "*"
+            }
+        });
 
-        return Promise.resolve(requestAsJson);
+        return response;
     }
 }
 
