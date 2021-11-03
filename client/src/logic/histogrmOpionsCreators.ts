@@ -1,4 +1,4 @@
-import Highcharts, { Tooltip, TooltipFormatterContextObject } from "highcharts/highstock";
+import Highcharts, { TooltipFormatterContextObject } from "highcharts/highstock";
 import EnrichedPoint from "../common/EnrichedPoint";
 import Point from "../common/Point";
 
