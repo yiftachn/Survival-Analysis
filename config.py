@@ -14,7 +14,7 @@ Y_COLUMNS = ["death", "survival_time_in_months"]
 
 FEATURES_TO_KEEP = KUPITZ_FEATURES
 PRE_FEATURES_TO_KEEP = ['obesity', 'Tumor_origin', 'IHD', 'age', 'asa', 'DM', 'COPD','weight']
-INTRA_FEATURES_TO_KEEP = INTRA_FEATURES_TO_KEEP = ['critical_lesions','Liver involvment','SPS', 'Upper ileum', 'PCI', 'Pelvic Peritonectomy', 'resections___sb', 'Low Jej',
+INTRA_FEATURES_TO_KEEP = ['critical_lesions','Liver involvment','SPS', 'Upper ileum', 'PCI', 'Pelvic Peritonectomy', 'resections___sb', 'Low Jej',
                           'extra_peritoneal__none', 'resections_ileostomy', 'RLQ', 'resections__pelvic_peritonectomy', 'Upper Jej',
                           'anastomosis__sb_sb', 'resections_ruq','weight', 'anastomosis__sb_colon', 'LUQ',
                           'extra_peritoneal__pelvis', 'extra_peritoneal__rplnd', 'obesity', 'Pelvic']
