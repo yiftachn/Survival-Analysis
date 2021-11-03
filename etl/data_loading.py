@@ -97,7 +97,7 @@ def load_and_clean_desc_df():
 def get_pre_df(desc_df, important_columns):
     pre_features = get_features_by_stage(desc_df, 'pre')
     pre_df_features = pre_features + important_columns
-    pre_df_features = [feature for feature in pre_df_features if feature in config.PRE_FEATURES_TO_KEEP]
+    pre_df_features = [feature for feature in pre_df_features if feature in config.PRE_FEATURES_TO_KEEP]  + important_columns
     return pre_df_features
 
 
