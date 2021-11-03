@@ -1,4 +1,5 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
+import Point from "../common/Point";
 import SurgeryAnalysisRequest from "../model/surgeryAnalysisRequest";
 
 
@@ -17,19 +18,15 @@ class SurvivalCalculator {
         return SurvivalCalculator.instance;
     }
 
-    public calculateSurvival = async (request: SurgeryAnalysisRequest): Promise<any> => {
-        const response = await axios.get(`http://localhost:5000/predict`, {
-            params: {
-                weight: request.features.weight,
-                gender: request.features.gender,
-                age: request.features.age
-            },
+    public calculateSurvival = async (request: SurgeryAnalysisRequest): Promise<Point[]> => {
+        const response = await axios.post<Point[]>(`http://young-hollows-93061.herokuapp.com/predict`, {
+            body: request,
             headers: {
                 "Access-Control-Allow-Origin": "*"
             }
         });
 
-        return response;
+        return response.data;
     }
 }
 
