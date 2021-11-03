@@ -13,8 +13,12 @@ PRE_FEATURES = ['age', 'gender', 'weight', 'height', 'BMI', 'DM', 'Renal', 'IHD'
 Y_COLUMNS = ["death", "survival_time_in_months"]
 
 FEATURES_TO_KEEP = KUPITZ_FEATURES
-PRE_FEATURES_TO_KEEP = ['obesity', 'Tumor_origin', 'IHD', 'age', 'asa', 'DM', 'COPD']
-INTRA_FEATURES_TO_KEEP = ['resections___parietal_peritonectomy', 'Upper ileum', 'PCI', 'Pelvic Peritonectomy', 'resections___sb', 'Low Jej', 'extra_peritoneal___none', 'resections___ileostomy', 'RLQ', 'resections___pelvic_peritonectomy', 'Upper Jej', 'anastomosis___sb_sb', 'resections___ruq', 'resections___appendix', 'anastomosis___sb_colon', 'LUQ', 'extra_peritoneal___pelvis', 'extra_peritoneal___rplnd', 'obesity', 'Pelvic']
-POST_FEATURES_TO_KEEP = ['Patho % ', 'n specimens inv', 'reoperation', 'resections___parietal_peritonectomy', 'Upper ileum', 'PCI', 'hospital_stay_days', 'Pelvic Peritonectomy', 'resections___sb', 'Low Jej', 'icu_stay_days', 'extra_peritoneal___none', 'resections___ileostomy', 'RLQ', 'resections___pelvic_peritonectomy', 'Upper Jej', 'anastomosis___sb_sb', 'resections___ruq', 'Any complicatioj', 'complications___ssi']
+PRE_FEATURES_TO_KEEP = ['obesity', 'Tumor_origin', 'IHD', 'age', 'asa', 'DM', 'COPD','weight']
+INTRA_FEATURES_TO_KEEP = INTRA_FEATURES_TO_KEEP = ['critical_lesions','Liver involvment','SPS', 'Upper ileum', 'PCI', 'Pelvic Peritonectomy', 'resections___sb', 'Low Jej',
+                          'extra_peritoneal__none', 'resections_ileostomy', 'RLQ', 'resections__pelvic_peritonectomy', 'Upper Jej',
+                          'anastomosis__sb_sb', 'resections_ruq','weight', 'anastomosis__sb_colon', 'LUQ',
+                          'extra_peritoneal__pelvis', 'extra_peritoneal__rplnd', 'obesity', 'Pelvic']
+POST_FEATURES_TO_KEEP = ['critical_lesions','Liver involvment','SPS','Patho % ', 'n specimens inv', 'reoperation', 'resections___parietal_peritonectomy', 'Upper ileum', 'PCI', 'hospital_stay_days',
+                         'Pelvic Peritonectomy', 'resections__sb', 'Low Jej', 'icu_stay_days','weight', 'extra_peritoneal_none', 'resections_ileostomy', 'RLQ', 'Upper Jej', 'anastomosis_sb_sb', 'resections_ruq', 'Any complicatioj', 'complications__ssi']
 SEED = 20
 RANDOM_STATE_MODEL = 42
