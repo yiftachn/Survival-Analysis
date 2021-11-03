@@ -182,9 +182,7 @@ def predict_model():
     index = 0
     for model in model_arr:
         predict_result = model.predict_survival_function(record)
-        print(predict_result[0])
         score = get_correct_prediction(times[index], predict_result)
-        print(score)
         result[times[index]] = score
         index+=1
     # return the result back
