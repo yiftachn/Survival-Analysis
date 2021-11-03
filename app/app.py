@@ -156,6 +156,14 @@ def fill_missing_values(vector, type):
             vector[label] = default_values[type][label]
     return vector
 
+def get_correct_prediction(time, values):
+    index = 0
+    for exact_time in values[0].x:
+        if exact_time >= time:
+            return values[0].y[index]
+        index+=1
+    return values[0].y[index]
+
 # Create an API endpoint
 @app.route('/predict', methods=['POST'])
 @cross_origin()
@@ -174,14 +182,15 @@ def predict_model():
     index = 0
     for model in model_arr:
         predict_result = model.predict_survival_function(record)
-        result[times[index]] = predict_result
+        print(predict_result[0])
+        score = get_correct_prediction(times[index], predict_result)
+        print(score)
+        result[times[index]] = score
         index+=1
     # return the result back
-    return json.dumps(
-        {
-            result
-        }
-    )
+    print(result)
+    return json.dumps   (result)
+    
 
 
 if __name__ == '__main__':
