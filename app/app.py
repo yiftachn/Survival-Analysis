@@ -166,7 +166,7 @@ def get_correct_prediction(time, values):
 
 # Create an API endpoint
 @app.route('/predict', methods=['POST'])
-@cross_origin()
+@cross_origin(origin='*')
 def predict_model():
     # Read all necessary request parameters
     features = request.json['features']
@@ -189,7 +189,14 @@ def predict_model():
     print(result)
     return json.dumps   (result)
     
-
+@app.after_request
+def add_headers(response):
+    response.headers.add('Content-Type', 'application/json')
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+    response.headers.add('Access-Control-Expose-Headers', 'Content-Type,Content-Length,Authorization,X-Pagination')
+    return response
 
 if __name__ == '__main__':
     cors = CORS(app)
