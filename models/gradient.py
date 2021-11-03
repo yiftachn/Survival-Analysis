@@ -11,45 +11,74 @@ from etl.train_test_split import impute_nan_values_and_split_to_train_test
 from config import Y_COLUMNS
 
 
-from sksurv.ensemble import RandomSurvivalForest
+from sksurv.ensemble.boosting import GradientBoostingSurvivalAnalysis
 from sksurv.metrics import as_integrated_brier_score_scorer
 from models.base_model import BaseSurvivalModel
 
 single_run_config = {
-    'n_estimators': 100,
-    'min_samples_split': 5,
-    'min_samples_leaf': 5,
-    'random_seed': 734,
-    'dataset': 'intra',
-    'time_of_eval': 12
+        'loss': 'coxph',
+        'learning_rate': 0.1,
+        'n_estimators': 1000,
+        'criterion': 'friedman_mse',
+        'min_samples_split':2,
+        'min_samples_leaf' : 1,
+        'max_depth' :3,
+        'max_features': 'sqrt',
+        'random_seed': 734,
+        'dataset': 'intra',
+        'time_of_eval': 12
 }
 
 
-class RandomForestModel(BaseSurvivalModel):
-    def __init__(self,config_dict = None):
+#
+# ="", =, =100,
+#                  =',
+#                  m,
+#                  =1, =0.,
+#                  =3, =None,
+#                 =0., random_state=None,
+#                  =None, max_leaf_nodes=None,
+#                  subsample=1.0, dropout_rate=0.0,
+#                  verbose=0,
+#                  ccp_alpha=0.0):
+
+
+# todo: this config makes an error
+# config is {'dataset': 'post', 'learning_rate': 0.1, 'loss': 'ipcwls', 'max_depth': 3, 'max_features': 'auto', 'min_samples_leaf': 5, 'min_samples_split': 3, 'n_estimators': 1000, 'random_seed': 435, 'time_of_eval': 12}
+
+
+
+class GradientSurvivalModel(BaseSurvivalModel):
+    def __init__(self, config_dict=None):
         super().__init__()
         if config_dict is not None:
             self.config = config_dict
         print(f'config is {self.config}')
         c = self.config
         time_to_eval = c['time_of_eval']
-        self.clf = as_integrated_brier_score_scorer(estimator=RandomSurvivalForest(c['n_estimators'], c['min_samples_split'], c['min_samples_leaf'], n_jobs=-1),times=[time_to_eval,time_to_eval+0.1])
+        self.clf = as_integrated_brier_score_scorer(
+            estimator=GradientBoostingSurvivalAnalysis(loss=c['loss'], learning_rate=c['learning_rate'],
+                                                       n_estimators=c['n_estimators'],
+                                                       min_samples_split=c['min_samples_split'],min_samples_leaf=c['min_samples_leaf'],
+                                                       max_depth=c['max_depth'],max_features = c['max_features']
+                                                       ),
+            times=[time_to_eval, time_to_eval + 0.1])
 
 
 def sweep_run():
-    model = RandomForestModel()
+    model = GradientSurvivalModel()
     model.train_eval()
 
 
 def single_run():
-    model = RandomForestModel(config_dict=single_run_config)
-    model.train_eval()
+    model = GradientSurvivalModel(config_dict=single_run_config)
+    estimator = model.train_eval()
 
 
 def invesitgate_best_model():
     df = get_df_for_stage('intra')
     clf = as_integrated_brier_score_scorer(
-        estimator=RandomSurvivalForest(n_estimators=1000, min_samples_split=15, min_samples_leaf = 20, n_jobs=-1),
+        estimator=GradientSurvivalModel(),
         times=[12, 12 + 0.1])
     X_train, X_test, y_train, y_test = impute_nan_values_and_split_to_train_test(df, seed=2000)
     run_dict = {}
@@ -70,8 +99,11 @@ def invesitgate_best_model():
 #
 #
 def run_cross_val(run_dict: dict):
-    result_dict = cross_validate(estimator=run_dict['clf'], X=run_dict['X_train'], y=run_dict['y_train'], cv=5,return_estimator=True,n_jobs=7)
+    result_dict = cross_validate(estimator=run_dict['clf'], X=run_dict['X_train'], y=run_dict['y_train'], cv=5,
+                                 return_estimator=True, n_jobs=7)
     return result_dict
+
+
 #
 # def choose_k_features(run_dict: dict ,k:int  = 15)->list:
 #     selector = RFECV(estimator=run_dict['clf'],min_features_to_select=k,n_jobs=-1)

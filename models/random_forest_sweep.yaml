@@ -5,7 +5,7 @@ metric:
   goal: maximize
 parameters:
   n_estimators:
-    values: [100, 1000, 10000]
+    values: [100, 500,1000]
   min_samples_split:
     values: [5, 10, 20]
   min_samples_leaf:
@@ -14,3 +14,5 @@ parameters:
     values: [734,435,2562]
   dataset:
     values: ['intra','post']
+  time_of_eval:
+    values: [3,12,30]
