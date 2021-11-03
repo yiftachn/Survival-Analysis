@@ -1,19 +1,45 @@
-import numpy as np
-import pandas as pd
-from sklearn.model_selection import cross_val_score
-from sksurv.ensemble import RandomSurvivalForest
-from etl.data_loading import get_df_for_stage
-from etl.train_test_split import impute_nan_values_and_split_to_train_test
-from config import RANDOM_STATE_MODEL
+import json
+import os
+import pickle
+from logging import getLogger
 
-if __name__ == "__main__":
-    pd.set_option('mode.chained_assignment', None)
-    df = get_df_for_stage('pre')
-    X_train, X_test, y_train, y_test = impute_nan_values_and_split_to_train_test(df)
-    classifier = RandomSurvivalForest(n_estimators=100, min_samples_split=9, min_samples_leaf=3, max_features="sqrt",
-                                      random_state=RANDOM_STATE_MODEL)
-    classifier.fit(X_train, y_train)
-    scores = classifier.score(X_test, y_test)
-    print(scores)
-    # scores = cross_val_score(classifier, X_train, y_train, cv=10)
-    # print(np.mean(scores), scores)
+# Import all the packages you need for your model below
+import numpy as np
+# Import Flask for creating API
+from flask import Flask, request
+
+from config import PROJECT_ROOT_DIR
+
+logger = getLogger("logger")
+port = int(os.environ.get("PORT", 5000))
+# Load the trained model from current directory
+with open(PROJECT_ROOT_DIR / 'production_model.pkl', 'rb') as model_pkl:
+    rsf = pickle.load(model_pkl)
+# Initialise a Flask app
+app = Flask(__name__)
+
+
+# Create an API endpoint
+@app.route('/predict', methods=['GET'])
+def predict_model():
+    # Read all necessary request parameters
+    features = request.args.to_dict()
+    # raise Exception(str(features))
+    # Use the predict method of the model to
+    # get the prediction for unseen data
+    new_record = np.array([list(features.values())])
+    times = [3, 6, 12, 36]
+    predict_result = rsf.predict_survival_function(new_record)[0](times).tolist()
+    # return the result back
+    return json.dumps(
+        {
+            "prediction": {
+                "times": times,
+                "probabilities": predict_result
+            }
+        }
+    )
+
+
+if __name__ == '__main__':
+    app.run(debug=True, host='0.0.0.0', port=port)
