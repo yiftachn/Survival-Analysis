@@ -108,7 +108,7 @@ def get_pre_df(desc_df, important_columns, kupitz=False):
 
 def get_intra_df(desc_df, important_columns, kupitz=False):
     intra_features = get_features_by_stage(desc_df, 'intra')
-    pre_df_features = get_pre_df(desc_df, important_columns)
+    pre_df_features = get_pre_df(desc_df, important_columns, kupitz)
     intra_df_features = pre_df_features + intra_features
     if not kupitz:
         intra_df_features = [feature for feature in intra_df_features if feature in config.INTRA_FEATURES_TO_KEEP] + important_columns
@@ -121,7 +121,7 @@ def get_intra_df(desc_df, important_columns, kupitz=False):
 
 def get_post_df(desc_df, important_columns, kupitz=False):
     post_features = get_features_by_stage(desc_df, 'post')
-    intra_df_features = get_intra_df(desc_df, important_columns)
+    intra_df_features = get_intra_df(desc_df, important_columns, kupitz)
     post_df_features = intra_df_features + post_features
     if not kupitz:
         post_df_features = [feature for feature in post_df_features if feature in config.POST_FEATURES_TO_KEEP] + important_columns
