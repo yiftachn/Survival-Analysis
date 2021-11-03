@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom';
 import useAsyncEffect from 'use-async-effect';
 import Point from '../../common/Point';
 import useRxSubscription from '../../hooks/useRxSubscription';
-import GraphLogic from '../../logic/graphLogics';
+import GraphLogic from '../../logic/graphLogic';
 import SurvivalAnalysisRequestCreator from '../../logic/survivalAnalysisRequestCreator';
 import SurvivalCalculator from '../../logic/survivalCalculator';
 import FormStore from '../../store/FormStore';

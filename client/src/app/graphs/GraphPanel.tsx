@@ -4,7 +4,7 @@ import Highcharts from "highcharts/highstock";
 import { Box } from "@mui/material";
 import React, { FC } from "react";
 import styles from "./GraphPanel.module.scss";
-import HistogrmOpionsCreator from "../../logic/HistogrmOpionsCreator";
+import HistogrmOpionsCreator from "../../logic/histogrmOpionsCreator";
 import useRxSubscription from "../../hooks/useRxSubscription";
 import GraphStore from "../../store/GraphStore";
 import BackButton from '../backButton/BackButton';
