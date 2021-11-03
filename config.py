@@ -15,7 +15,6 @@ Y_COLUMNS = ["death", "survival_time_in_months"]
 FEATURES_TO_KEEP = KUPITZ_FEATURES
 PRE_FEATURES_TO_KEEP = ['obesity', 'Tumor_origin', 'IHD', 'age', 'asa', 'DM', 'COPD']
 INTRA_FEATURES_TO_KEEP = ['resections___parietal_peritonectomy', 'Upper ileum', 'PCI', 'Pelvic Peritonectomy', 'resections___sb', 'Low Jej', 'extra_peritoneal___none', 'resections___ileostomy', 'RLQ', 'resections___pelvic_peritonectomy', 'Upper Jej', 'anastomosis___sb_sb', 'resections___ruq', 'resections___appendix', 'anastomosis___sb_colon', 'LUQ', 'extra_peritoneal___pelvis', 'extra_peritoneal___rplnd', 'obesity', 'Pelvic']
-POST_FEATURES_TO_KEEP = ['Patho % ', 'n specimens inv', 'reoperation', 'resections___parietal_peritonectomy', 'Upper ileum', 'PCI', 'hospital_stay_days', 'Pelvic Peritonectomy', 'resections___sb', 'Low Jej', 'icu_stay_days', 'extra_peritoneal___none', 'resections___ileostomy', 'RLQ', 'resections___pelvic_peritonectomy', 'Upper Jej', 'anastomosis___sb_sb', 'resections___ruq', 'Any complicatioj', 'complications___ssi', 'resections___appendix', 'anastomosis___sb_colon', 'packed_cells', 'complications___other_pulmonary_complications', 'n specimens sub', 'T', 'LUQ', '5FU+ Leucovorin', 'N', 'complications___renal_failure']
-
+POST_FEATURES_TO_KEEP = ['Patho % ', 'n specimens inv', 'reoperation', 'resections___parietal_peritonectomy', 'Upper ileum', 'PCI', 'hospital_stay_days', 'Pelvic Peritonectomy', 'resections___sb', 'Low Jej', 'icu_stay_days', 'extra_peritoneal___none', 'resections___ileostomy', 'RLQ', 'resections___pelvic_peritonectomy', 'Upper Jej', 'anastomosis___sb_sb', 'resections___ruq', 'Any complicatioj', 'complications___ssi']
 SEED = 20
 RANDOM_STATE_MODEL = 42
