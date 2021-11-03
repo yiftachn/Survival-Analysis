@@ -43,12 +43,19 @@ def remove_missing_features(desc_df):
 
 def remove_features_to_drop(features):
     return [feature for feature in features if
-            feature not in config.FEATURES_TO_DROP and feature in config.FEATURES_TO_KEEP]
+            feature not in config.FEATURES_TO_DROP]  # and feature in config.FEATURES_TO_KEEP]
 
 
-def get_features_by_stage(desc_df, stage):
+def keep_default_features(features):
+    return [feature for feature in features if
+            feature in config.FEATURES_TO_KEEP]  # and feature in config.FEATURES_TO_KEEP]
+
+
+def get_features_by_stage(desc_df, stage, use_default_features=False):
     features = list(desc_df[desc_df['Unnamed: 7'] == stage]['record_id'])
     features = remove_features_to_drop(features)
+    if use_default_features:
+        features = keep_default_features(features)
     return features
 
 
@@ -90,6 +97,7 @@ def load_and_clean_desc_df():
 def get_pre_df(desc_df, important_columns):
     pre_features = get_features_by_stage(desc_df, 'pre')
     pre_df_features = pre_features + important_columns
+    # pre_df_features = [feature for feature in pre_df_features if feature in config.PRE_FEATURES_TO_KEEP]
     return pre_df_features
 
 
@@ -97,6 +105,7 @@ def get_intra_df(desc_df, important_columns):
     intra_features = get_features_by_stage(desc_df, 'intra')
     pre_df_features = get_pre_df(desc_df, important_columns)
     intra_df_features = pre_df_features + intra_features
+    intra_df_features = [feature for feature in intra_df_features if feature in config.INTRA_FEATURES_TO_KEEP]
     return intra_df_features
 
 
@@ -104,4 +113,5 @@ def get_post_df(desc_df, important_columns):
     post_features = get_features_by_stage(desc_df, 'post')
     intra_df_features = get_intra_df(desc_df, important_columns)
     post_df_features = intra_df_features + post_features
+    post_df_features = [feature for feature in post_df_features if feature in config.POST_FEATURES_TO_KEEP]
     return post_df_features
