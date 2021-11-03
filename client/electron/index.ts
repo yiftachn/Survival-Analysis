@@ -9,7 +9,7 @@ function createWindow() {
   const windowOptions: BrowserWindowConstructorOptions = {
     minWidth: 800,
     minHeight: 600,
-    icon: __dirname + '/dist/vite/WindowIcon.ico',
+    icon: './dist/vite/WindowIcon.ico',
     backgroundColor: "black",
     titleBarStyle: "customButtonsOnHover",
     autoHideMenuBar: true,
@@ -19,7 +19,7 @@ function createWindow() {
     },
     webPreferences: {
       contextIsolation: true,
-      devTools: isDevelopment,
+      devTools: true,
       spellcheck: false,
       nodeIntegration: true
     },

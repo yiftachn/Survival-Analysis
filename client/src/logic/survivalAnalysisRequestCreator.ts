@@ -28,7 +28,7 @@ class SurvivalAnalysisRequestCreator {
             throw new Error("Features are empty");
 
         const request: SurgeryAnalysisRequest = {
-            surgeryStep,
+            model_type: surgeryStep,
             features
         };
 

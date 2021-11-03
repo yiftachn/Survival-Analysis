@@ -2,8 +2,8 @@ import StringDictionary from "../common/stringDictionary";
 import { SurgeryStep } from "./surgeryStep";
 
 interface SurgeryAnalysisRequest {
-    surgeryStep: SurgeryStep;
     features: StringDictionary<number>;
+    model_type: SurgeryStep;
 }
 
 
