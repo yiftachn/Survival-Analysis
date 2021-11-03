@@ -1,0 +1,27 @@
+program: ./models/gradient.py
+method: bayes
+metric:
+  name: negative_brier
+  goal: maximize
+parameters:
+  loss:
+    values: ['coxph','ipcwls']
+  learning_rate:
+    values: [0.1,0.05]
+  n_estimators:
+    values: [100,500,1000,5000]
+  max_depth:
+    values: [3,5]
+  min_samples_split:
+    values: [3,5]
+  max_features:
+    values: ['sqrt','auto']
+  min_samples_leaf:
+    values: [5, 15, 30]
+  random_seed:
+    values: [734,435,2562]
+  dataset:
+    values: ['intra','post']
+  time_of_eval:
+    values: [3,6,12,24]
+

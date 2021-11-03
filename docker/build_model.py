@@ -51,18 +51,6 @@ y = np.array(y, dtype=[("death", "?"), ("death_time", "<f8")])  # example from s
 
 best_model = RandomSurvivalForest(n_estimators=1000, min_samples_split=20, min_samples_leaf=5)
 best_model.fit(X, y)
-a = 5
 
 with open(PROJECT_ROOT_DIR / model_type + '.pkl', 'wb') as model_pkl:
     pickle.dump(best_model, model_pkl)
-
-# iris = datasets.load_iris()
-# x = iris.data
-# y = iris.target
-# x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=.3)
-# knn = neighbors.KNeighborsClassifier()
-# knn.fit(x_train, y_train)
-# predictions = knn.predict(x_test)
-# print(accuracy_score(y_test, predictions))
-# with open('../python_docker_heroku/model.pkl', 'wb') as model_pkl:
-#     pickle.dump(knn, model_pkl)

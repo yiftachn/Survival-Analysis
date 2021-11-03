@@ -1,0 +1,19 @@
+.container {
+    margin-top: 1em;
+    max-height: 45vh;
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+        width: 0.5em;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: #fff;
+        border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #f77990;
+        border-radius: 10px;
+    }
+}
