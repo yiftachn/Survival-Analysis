@@ -41,9 +41,12 @@ def remove_missing_features(desc_df):
     return desc_df_no_missing
 
 
-def remove_features_to_drop(features):
-    return [feature for feature in features if
-            feature not in config.FEATURES_TO_DROP and feature in config.FEATURES_TO_KEEP]
+def remove_features_to_drop(features, choose_default_features=False):
+    features = [feature for feature in features if
+                feature not in config.FEATURES_TO_DROP]
+    if choose_default_features:
+        features = [feature for feature in features if feature in config.FEATURES_TO_KEEP]
+    return features
 
 
 def get_features_by_stage(desc_df, stage):
