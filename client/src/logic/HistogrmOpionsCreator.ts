@@ -1,6 +1,6 @@
 import Highcharts, { Tooltip, TooltipFormatterContextObject } from "highcharts/highstock";
-import EnrichedPoint from "../../common/EnrichedPoint";
-import Point from "../../common/Point";
+import EnrichedPoint from "../common/EnrichedPoint";
+import Point from "../common/Point";
 
 class HistogrmOpionsCreator {
 
@@ -15,8 +15,8 @@ class HistogrmOpionsCreator {
       xAxis: {
         type: 'category',
         labels: {
-          style:{
-            color:"#FFFFFF"
+          style: {
+            color: "#FFFFFF"
           }
         }
       },
@@ -27,11 +27,11 @@ class HistogrmOpionsCreator {
       tooltip: {
         formatter(this: TooltipFormatterContextObject) {
           let tooltip = `<br>X : ${this.x}<br>Y : ${this.y}<br>`;
-          if(this.series.name === "Scatter points"){
+          if (this.series.name === "Scatter points") {
             // @ts-ignore
             tooltip += `${this.point.description}`
           }
-         
+
           return tooltip;
         }
       }
@@ -97,13 +97,13 @@ class HistogrmOpionsCreator {
       yAxis: {
         title: {
           text: title,
-          style:{
-            color:"#FFFFFF"
+          style: {
+            color: "#FFFFFF"
           }
         },
         labels: {
-          style:{
-            color:"#FFFFFF"
+          style: {
+            color: "#FFFFFF"
           }
         }
       }

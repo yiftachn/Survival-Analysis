@@ -82,8 +82,8 @@
       "icon": "./public/WindowIcon.ico"
     },
     "files": [
-      "dist/electron/**",
-      "dist/vite/**",
+      "dist/electron/**/*",
+      "dist/vite/**/*",
       "public/**"
     ],
     "directories": {

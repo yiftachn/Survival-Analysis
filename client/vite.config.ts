@@ -10,7 +10,7 @@ const buildRoot = join(__dirname, "dist/vite");
 export default ({ command }: ConfigEnv): UserConfig => {
   // DEV
   return {
-    base: command === "serve" ? "/" : buildRoot,
+    base: command === "serve" ? "/" : "./",
     plugins: [eslint(), react(), checker({ typescript: true })],
 
     alias: {
