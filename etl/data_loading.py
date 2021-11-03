@@ -5,16 +5,16 @@ import numpy as np
 import config
 
 
-def get_df_for_stage(stage):
+def get_df_for_stage(stage, kupitz=False):
     survival_analysis_df = load_and_clean_survival_analysis_df()
     desc_df = load_and_clean_desc_df()
     important_columns = ['survival_time_in_months', 'death']
     if stage == "post":
-        survival_analysis_df = survival_analysis_df[get_post_df(desc_df, important_columns)]
+        survival_analysis_df = survival_analysis_df[get_post_df(desc_df, important_columns, kupitz)]
     elif stage == "pre":
-        survival_analysis_df = survival_analysis_df[get_pre_df(desc_df, important_columns)]
+        survival_analysis_df = survival_analysis_df[get_pre_df(desc_df, important_columns, kupitz)]
     elif stage == "intra":
-        survival_analysis_df = survival_analysis_df[get_intra_df(desc_df, important_columns)]
+        survival_analysis_df = survival_analysis_df[get_intra_df(desc_df, important_columns, kupitz)]
     return survival_analysis_df
 
 
@@ -94,18 +94,28 @@ def load_and_clean_desc_df():
     return desc_df
 
 
-def get_pre_df(desc_df, important_columns):
+def get_pre_df(desc_df, important_columns, kupitz=False):
     pre_features = get_features_by_stage(desc_df, 'pre')
     pre_df_features = pre_features + important_columns
-    pre_df_features = [feature for feature in pre_df_features if feature in config.PRE_FEATURES_TO_KEEP]  + important_columns
+    if not kupitz:
+        pre_df_features = [feature for feature in pre_df_features if feature in config.PRE_FEATURES_TO_KEEP]  + important_columns
+    else:
+        for feature in important_columns:
+            if feature not in pre_df_features:
+                pre_df_features.append(feature)
     return pre_df_features
 
 
-def get_intra_df(desc_df, important_columns):
+def get_intra_df(desc_df, important_columns, kupitz=False):
     intra_features = get_features_by_stage(desc_df, 'intra')
     pre_df_features = get_pre_df(desc_df, important_columns)
     intra_df_features = pre_df_features + intra_features
-    intra_df_features = [feature for feature in intra_df_features if feature in config.INTRA_FEATURES_TO_KEEP] + important_columns
+    if not kupitz:
+        intra_df_features = [feature for feature in intra_df_features if feature in config.INTRA_FEATURES_TO_KEEP] + important_columns
+    else:
+        for feature in important_columns:
+            if feature not in intra_df_features:
+                intra_df_features.append(feature)
     return intra_df_features
 
 
