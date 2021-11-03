@@ -1,8 +1,4 @@
-import { execFile } from 'child_process';
-
 import SurgeryAnalysisRequest from "../model/surgeryAnalysisRequest";
-
-
 
 class SurvivalCalculator {
     private static instance: SurvivalCalculator;
@@ -21,14 +17,7 @@ class SurvivalCalculator {
 
     public calculateSurvival = async (request: SurgeryAnalysisRequest): Promise<string> => {
         const requestAsJson = JSON.stringify(request).replaceAll("\"", "\\\"");
-        // await new Promise(resolve => setTimeout(resolve, 3000));
 
-
-
-        await execFile("./resources/lol.exe", (err: any, data: any) => {
-            console.log(err);
-            console.log(data.toString());
-        });
         return Promise.resolve(requestAsJson);
     }
 }
