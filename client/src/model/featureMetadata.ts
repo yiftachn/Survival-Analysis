@@ -48,37 +48,51 @@ export const featureToDetails: { [key in FeatureType]: FeatureDetails } = {
     DM: {
         name: "DM",
         displayName: "DM",
-        validators: [FloatValidator]
+        validators: [],
+        choices: ["true", "false"],
+        toNumber: (value: string) => value === "true" ? 1 : 0
     },
     HTN: {
         name: "HTN",
         displayName: "Hypertension",
-        validators: [FloatValidator]
+        validators: [],
+        choices: ["true", "false"],
+        toNumber: (value: string) => value === "true" ? 1 : 0
     },
     Renal: {
         name: "Renal",
         displayName: "Renal Disfunction",
-        validators: [FloatValidator]
+        validators: [],
+        choices: ["true", "false"],
+        toNumber: (value: string) => value === "true" ? 1 : 0
     },
     IHD: {
         name: "IHD",
         displayName: "Ischemic Heart Disease",
-        validators: [FloatValidator]
+        validators: [],
+        choices: ["true", "false"],
+        toNumber: (value: string) => value === "true" ? 1 : 0
     },
     COPD: {
         name: "COPD",
         displayName: "Chronic Obstructive Pulmonary Disease",
-        validators: [FloatValidator]
+        validators: [],
+        choices: ["true", "false"],
+        toNumber: (value: string) => value === "true" ? 1 : 0
     },
     obesity: {
         name: "obesity",
         displayName: "Obesity",
-        validators: [FloatValidator]
+        validators: [],
+        choices: ["true", "false"],
+        toNumber: (value: string) => value === "true" ? 1 : 0
     },
     Cva: {
         name: "Cva",
         displayName: "Cardiovascular Accident",
-        validators: [FloatValidator]
+        validators: [],
+        choices: ["true", "false"],
+        toNumber: (value: string) => value === "true" ? 1 : 0
     },
     asa: {
         name: "asa",
@@ -93,57 +107,79 @@ export const featureToDetails: { [key in FeatureType]: FeatureDetails } = {
     extra_peritoneal___none: {
         name: "extra_peritoneal___none",
         displayName: "extra_peritoneal___none",
-        validators: [FloatValidator]
+        validators: [],
+        choices: ["true", "false"],
+        toNumber: (value: string) => value === "true" ? 1 : 0
     },
     extra_peritoneal___rplnd: {
         name: "extra_peritoneal___rplnd",
         displayName: "extra_peritoneal___rplnd",
-        validators: [FloatValidator]
+        validators: [],
+        choices: ["true", "false"],
+        toNumber: (value: string) => value === "true" ? 1 : 0
     },
     extra_peritoneal___pelvis: {
         name: "extra_peritoneal___pelvis",
         displayName: "extra_peritoneal___pelvis",
-        validators: [FloatValidator]
+        validators: [],
+        choices: ["true", "false"],
+        toNumber: (value: string) => value === "true" ? 1 : 0
     },
     anastomosis___sb_sb: {
         name: "anastomosis___sb_sb",
         displayName: "anastomosis___sb_sb",
-        validators: [FloatValidator]
+        validators: [],
+        choices: ["true", "false"],
+        toNumber: (value: string) => value === "true" ? 1 : 0
     },
     anastomosis___sb_colon: {
         name: "anastomosis___sb_colon",
         displayName: "anastomosis___sb_colon",
-        validators: [FloatValidator]
+        validators: [],
+        choices: ["true", "false"],
+        toNumber: (value: string) => value === "true" ? 1 : 0
     },
     resections___sb: {
         name: "resections___sb",
         displayName: "resections___sb",
-        validators: [FloatValidator]
+        validators: [],
+        choices: ["true", "false"],
+        toNumber: (value: string) => value === "true" ? 1 : 0
     },
     resections___parietal_peritonectomy: {
         name: "resections___parietal_peritonectomy",
         displayName: "resections___parietal_peritonectomy",
-        validators: [FloatValidator]
+        validators: [],
+        choices: ["true", "false"],
+        toNumber: (value: string) => value === "true" ? 1 : 0
     },
     resections___pelvic_peritonectomy: {
         name: "resections___pelvic_peritonectomy",
         displayName: "resections___pelvic_peritonectomy",
-        validators: [FloatValidator]
+        validators: [],
+        choices: ["true", "false"],
+        toNumber: (value: string) => value === "true" ? 1 : 0
     },
     resections___ruq: {
         name: "resections___ruq",
         displayName: "resections___ruq",
-        validators: [FloatValidator]
+        validators: [],
+        choices: ["true", "false"],
+        toNumber: (value: string) => value === "true" ? 1 : 0
     },
     resections___ileostomy: {
         name: "resections___ileostomy",
         displayName: "resections___ileostomy",
-        validators: [FloatValidator]
+        validators: [],
+        choices: ["true", "false"],
+        toNumber: (value: string) => value === "true" ? 1 : 0
     },
     resections___appendix: {
         name: "resections___appendix",
         displayName: "resections___appendix",
-        validators: [FloatValidator]
+        validators: [],
+        choices: ["true", "false"],
+        toNumber: (value: string) => value === "true" ? 1 : 0
     },
     LUQ: {
         name: "LUQ",
@@ -183,12 +219,16 @@ export const featureToDetails: { [key in FeatureType]: FeatureDetails } = {
     "Pelvic Peritonectomy": {
         name: "Pelvic Peritonectomy",
         displayName: "Pelvic Peritonectomy",
-        validators: [FloatValidator]
+        validators: [],
+        choices: ["true", "false"],
+        toNumber: (value: string) => value === "true" ? 1 : 0
     },
     "Any complicatioj": {
         name: "Any complicatioj",
         displayName: "Any complicatioj",
-        validators: [FloatValidator]
+        validators: [],
+        choices: ["true", "false"],
+        toNumber: (value: string) => value === "true" ? 1 : 0
     },
     "Patho % ": {
         name: "Patho % ",
@@ -203,7 +243,9 @@ export const featureToDetails: { [key in FeatureType]: FeatureDetails } = {
     complications___ssi: {
         name: "complications___ssi",
         displayName: "complications___ssi",
-        validators: [FloatValidator]
+        validators: [],
+        choices: ["true", "false"],
+        toNumber: (value: string) => value === "true" ? 1 : 0
     },
     hospital_stay_days: {
         name: "hospital_stay_days",
@@ -218,7 +260,9 @@ export const featureToDetails: { [key in FeatureType]: FeatureDetails } = {
     reoperation: {
         name: "reoperation",
         displayName: "Reoperation",
-        validators: [FloatValidator]
+        validators: [],
+        choices: ["true", "false"],
+        toNumber: (value: string) => value === "true" ? 1 : 0
     }
 }
 
