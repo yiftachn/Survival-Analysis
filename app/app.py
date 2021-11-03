@@ -34,7 +34,7 @@ with open(PROJECT_ROOT_DIR / 'configuration/intra_6.pkl', 'rb') as model_pkl:
 with open(PROJECT_ROOT_DIR / 'configuration/intra_12.pkl', 'rb') as model_pkl:
     intra_12 = pickle.load(model_pkl)
 
-with open(PROJECT_ROOT_DIR / 'configuration/intra_24', 'rb') as model_pkl:
+with open(PROJECT_ROOT_DIR / 'configuration/intra_240.pkl', 'rb') as model_pkl:
     intra_24 = pickle.load(model_pkl)
 
 intra = [intra_3, intra_6, intra_12, intra_24]
@@ -168,7 +168,7 @@ def predict_model():
     # Use the predict method of the model to
     # get the prediction for unseen data
     vector = fill_missing_values(features, model_type)
-    record = pd.DataFrame(vector)
+    record = pd.DataFrame(vector, index=[0])
     times = [3, 6, 12, 36]
     result = {}
     index = 0
