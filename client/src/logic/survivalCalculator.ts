@@ -20,7 +20,7 @@ class SurvivalCalculator {
 
     public calculateSurvival = async (request: SurgeryAnalysisRequest): Promise<Point[]> => {
         const response = await axios.post<Point[]>(`http://young-hollows-93061.herokuapp.com/predict`, {
-            request
+            body: request
         });
 
         return response.data;
