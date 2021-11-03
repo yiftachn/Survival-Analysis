@@ -33,7 +33,7 @@ export const featureToDetails: { [key in FeatureType]: FeatureDetails } = {
         displayName: "Gender",
         validators: [],
         choices: ["Male", "Female"],
-        toNumber: (value: string) => value === "Male" ? 1 : 0
+        toNumber: (value: string) => value === "Male" ? 0 : 1
     }
 }
 
