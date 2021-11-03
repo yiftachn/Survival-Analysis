@@ -11,6 +11,7 @@ import SurvivalAnalysisRequestCreator from '../../logic/survivalAnalysisRequestC
 import SurvivalCalculator from '../../logic/survivalCalculator';
 import FormStore from '../../store/FormStore';
 import GraphStore from '../../store/GraphStore';
+import BackButton from '../backButton/BackButton';
 import styles from "./LoadingScreen.module.scss";
 
 const mockedScatterPoints: Point[] = [
@@ -67,7 +68,7 @@ const LoadingScreen: FC = () => {
         <div className={styles.container}>
             <Loader type="TailSpin" color={palette.primary.main} width={100} height={100} />
             <p className={styles.calculatingText}>Calculating Survival Analysis for {patientId + dots}</p>
-            <Button color="secondary" variant="contained" onClick={clickGoBack} fullWidth>Back</Button>
+            <BackButton onBackButtonClicked={clickGoBack}/>
         </div >
     );
 };
