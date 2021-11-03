@@ -8,16 +8,15 @@ import useRxSubscription from "../../hooks/useRxSubscription";
 import GraphStore from "../../store/GraphStore";
 
 const GraphPanel: FC = () => {
-    const [scatterPoints] = useRxSubscription(GraphStore.scatterPoints);
-    const [linePoints] = useRxSubscription(GraphStore.linePoints);
+    const [enrichedScatterPoints] = useRxSubscription(GraphStore.enrichedScatterPoints);
 
     const histogrmOpionsCreator = new HistogrmOpionsCreator();
 
     histogrmOpionsCreator.AddTitle("Precentage of survival").
     SetNumberOFDigitsAfterTheDot(3).
     SetYAxisTitle("Percent of survival").
-    AddLinePoints(linePoints).
-    AddScatterPoints(scatterPoints);
+    AddLinePoints(GraphStore.linePoints).
+    AddScatterPoints(enrichedScatterPoints);
 
     return (
         <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>

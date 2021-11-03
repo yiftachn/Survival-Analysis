@@ -1,4 +1,5 @@
 import Highcharts, { Tooltip, TooltipFormatterContextObject } from "highcharts/highstock";
+import EnrichedPoint from "../../common/EnrichedPoint";
 import Point from "../../common/Point";
 
 class HistogrmOpionsCreator {
@@ -13,6 +14,11 @@ class HistogrmOpionsCreator {
       },
       xAxis: {
         type: 'category',
+        labels: {
+          style:{
+            color:"#FFFFFF"
+          }
+        }
       },
       legend: {
         enabled: false
@@ -20,15 +26,19 @@ class HistogrmOpionsCreator {
       series: [],
       tooltip: {
         formatter(this: TooltipFormatterContextObject) {
-          if (this.series.name === "survival function")
-            return false;
-          return `<br>X : ${this.x}<br>Y : ${this.y}`;
+          let tooltip = `<br>X : ${this.x}<br>Y : ${this.y}<br>`;
+          if(this.series.name === "Scatter points"){
+            // @ts-ignore
+            tooltip += `${this.point.description}`
+          }
+         
+          return tooltip;
         }
       }
     }
   };
 
-  AddScatterPoints = (scatterPoints: Point[]) => {
+  AddScatterPoints = (scatterPoints: EnrichedPoint[]) => {
     this.histogramOptions.series?.push({
       name: "Scatter points",
       type: "scatter",
@@ -86,7 +96,15 @@ class HistogrmOpionsCreator {
       ...this.histogramOptions,
       yAxis: {
         title: {
-          text: title
+          text: title,
+          style:{
+            color:"#FFFFFF"
+          }
+        },
+        labels: {
+          style:{
+            color:"#FFFFFF"
+          }
         }
       }
     }
