@@ -72,7 +72,7 @@ class BaseSurvivalModel:
         result_dict = run_brier_cross_val(run_dict)
         averaged_brier_score = np.nanmean(result_dict['test_score'])
         results = {'negative_brier': averaged_brier_score, 'train_test_split_seed': self.config['random_seed'],
-                   'stage': self.config['dataset'], 'num_features': X_train.shape[1]}
+                   'dataset': self.config['dataset'], 'num_features': X_train.shape[1],'time_of_eval':self.config['time_of_eval']}
         result_dict = run_concordance_cross_val(run_dict)
         averaged_c_scores = np.nanmean(result_dict['test_score'])
         results.update({'c-index':averaged_c_scores})

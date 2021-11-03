@@ -23,5 +23,5 @@ parameters:
   dataset:
     values: ['intra','post']
   time_of_eval:
-    values: [3,6,12,24]
+    values: [12,6,24]
 
