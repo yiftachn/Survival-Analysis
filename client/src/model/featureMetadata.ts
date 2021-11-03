@@ -37,7 +37,7 @@ export const featureToDetails: { [key in FeatureType]: FeatureDetails } = {
     },
     height: {
         name: "height",
-        displayName: "Height (m)",
+        displayName: "Height (cm)",
         validators: [FloatValidator]
     },
     BMI: {
@@ -52,22 +52,22 @@ export const featureToDetails: { [key in FeatureType]: FeatureDetails } = {
     },
     HTN: {
         name: "HTN",
-        displayName: "HTN",
+        displayName: "Hypertension",
         validators: [FloatValidator]
     },
     Renal: {
         name: "Renal",
-        displayName: "Renal",
+        displayName: "Renal Disfunction",
         validators: [FloatValidator]
     },
     IHD: {
         name: "IHD",
-        displayName: "IHD",
+        displayName: "Ischemic Heart Disease",
         validators: [FloatValidator]
     },
     COPD: {
         name: "COPD",
-        displayName: "COPD",
+        displayName: "Chronic Obstructive Pulmonary Disease",
         validators: [FloatValidator]
     },
     obesity: {
@@ -77,12 +77,12 @@ export const featureToDetails: { [key in FeatureType]: FeatureDetails } = {
     },
     Cva: {
         name: "Cva",
-        displayName: "Cva",
+        displayName: "Cardiovascular Accident",
         validators: [FloatValidator]
     },
     asa: {
         name: "asa",
-        displayName: "asa",
+        displayName: "ASA score",
         validators: [FloatValidator]
     },
     Tumor_origin: {
