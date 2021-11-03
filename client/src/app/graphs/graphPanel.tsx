@@ -4,14 +4,13 @@ import { Box } from "@mui/material";
 import React, { FC } from "react";
 import styles from "./GraphPanel.module.scss";
 import HistogrmOpionsCreator from "./HistogrmOpionsCreator";
-import Point from "../../common/Point";
+import useRxSubscription from "../../hooks/useRxSubscription";
+import GraphStore from "../../store/GraphStore";
 
-interface GraphProps {
-    linePoints: Point[];
-    scatterPoints: Point[];
-}
+const GraphPanel: FC = () => {
+    const [scatterPoints] = useRxSubscription(GraphStore.scatterPoints);
+    const [linePoints] = useRxSubscription(GraphStore.linePoints);
 
-const PieGraph: FC<GraphProps> = ({ linePoints, scatterPoints }) => {
     const histogrmOpionsCreator = new HistogrmOpionsCreator();
 
     histogrmOpionsCreator.AddTitle("Precentage of survival").
@@ -29,4 +28,4 @@ const PieGraph: FC<GraphProps> = ({ linePoints, scatterPoints }) => {
     );
 };
 
-export default PieGraph;
+export default GraphPanel;

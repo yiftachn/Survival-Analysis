@@ -4,6 +4,7 @@ import {
     Switch,
     Route
 } from "react-router-dom";
+import GraphPanel from '../graphs/GraphPanel';
 import LoadingScreen from '../loadingScreen/LoadingScreen';
 import SurvivalAnalysisForm from '../survivalAnalysisForm/SurvivalAnalysisForm';
 
@@ -16,6 +17,9 @@ const SurvivalAnalysisRouter: FC = () => {
                 </Route>
                 <Route path="/loading">
                     <LoadingScreen />
+                </Route>
+                <Route path="/result">
+                    <GraphPanel />
                 </Route>
             </Switch>
         </Router>
