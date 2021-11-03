@@ -19,11 +19,10 @@ class HistogrmOpionsCreator {
       },
       series: [],
       tooltip: {
-        formatter: function (this: TooltipFormatterContextObject, tooltip: Tooltip) {
+        formatter(this: TooltipFormatterContextObject) {
           if (this.series.name === "survival function")
             return false;
-          else
-            return '<br>X : ' + this.x + '<br>Y : ' + this.y;
+          return `<br>X : ${this.x}<br>Y : ${this.y}`;
         }
       }
     }
@@ -47,7 +46,7 @@ class HistogrmOpionsCreator {
       type: "line",
       color: "#00FF00",
       data: linePoints,
-      dataLabels:{enabled:false}
+      dataLabels: { enabled: false }
     });
 
     return this;
@@ -58,7 +57,7 @@ class HistogrmOpionsCreator {
       ...this.histogramOptions,
       title: {
         text: title,
-        style:{color: "#FFFFFF"}
+        style: { color: "#FFFFFF" }
       }
     };
 
