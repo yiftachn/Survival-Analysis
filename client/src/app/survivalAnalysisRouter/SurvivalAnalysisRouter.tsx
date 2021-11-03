@@ -5,7 +5,7 @@ import {
     Route,
     Redirect
 } from "react-router-dom";
-import GraphPanel from '../graphs/graphPanel';
+import GraphPanel from '../graphs/GraphPanel';
 import LoadingScreen from '../loadingScreen/LoadingScreen';
 import SurvivalAnalysisForm from '../survivalAnalysisForm/SurvivalAnalysisForm';
 
