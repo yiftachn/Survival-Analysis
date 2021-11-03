@@ -31,7 +31,7 @@ function createWindow() {
     showCopyImage: false,
     prepend: () => [
       {
-        label: "its like magic 💥"
+        label: "hi doctor 🦀"
       }
     ]
   });

@@ -2,18 +2,18 @@ import FeatureDetails from "./featureDetails";
 import { FloatValidator, AgeValidator, WeightValidator } from "./validators";
 
 export const preperationFeatures = ["age", "gender", "weight", "height", "BMI", "DM",
- "HTN", "Renal", "IHD", "COPD", "obesity", "Cva", "asa", "Tumor_origin" ] as const;
+    "HTN", "Renal", "IHD", "COPD", "obesity", "Cva", "asa", "Tumor_origin"] as const;
 
 export const surgeryFeatures = ["obesity", "extra_peritoneal___none", "extra_peritoneal___rplnd", "extra_peritoneal___pelvis",
- "anastomosis___sb_sb", "anastomosis___sb_colon", "resections___sb", "resections___parietal_peritonectomy",
-  "resections___pelvic_peritonectomy", "resections___ruq", "resections___ileostomy", "resections___appendix",
-   "LUQ", "Pelvic", "RLQ", "Upper Jej", "Low Jej", "Upper ileum", "PCI", "Pelvic Peritonectomy" ] as const;
+    "anastomosis___sb_sb", "anastomosis___sb_colon", "resections___sb", "resections___parietal_peritonectomy",
+    "resections___pelvic_peritonectomy", "resections___ruq", "resections___ileostomy", "resections___appendix",
+    "LUQ", "Pelvic", "RLQ", "Upper Jej", "Low Jej", "Upper ileum", "PCI", "Pelvic Peritonectomy"] as const;
 
 export const postSurgeryFeatures = ["extra_peritoneal___none", "anastomosis___sb_sb", "resections___sb",
- "resections___parietal_peritonectomy", "resections___pelvic_peritonectomy", "resections___ruq",
- "resections___ileostomy", "Upper Jej", "Low Jej", "Upper ileum", "PCI", "Pelvic Peritonectomy",
-  "icu_stay_days", "hospital_stay_days",  "complications___ssi", "Any complicatioj",
-   "reoperation", "Patho % ", "n specimens inv"] as const;
+    "resections___parietal_peritonectomy", "resections___pelvic_peritonectomy", "resections___ruq",
+    "resections___ileostomy", "Upper Jej", "Low Jej", "Upper ileum", "PCI", "Pelvic Peritonectomy",
+    "icu_stay_days", "hospital_stay_days", "complications___ssi", "Any complicatioj",
+    "reoperation", "Patho % ", "n specimens inv"] as const;
 
 export type FeatureType = typeof preperationFeatures[number] | typeof surgeryFeatures[number] | typeof postSurgeryFeatures[number];
 
@@ -72,7 +72,7 @@ export const featureToDetails: { [key in FeatureType]: FeatureDetails } = {
     },
     obesity: {
         name: "obesity",
-        displayName: "obesity",
+        displayName: "Obesity",
         validators: [FloatValidator]
     },
     Cva: {
@@ -185,6 +185,40 @@ export const featureToDetails: { [key in FeatureType]: FeatureDetails } = {
         displayName: "Pelvic Peritonectomy",
         validators: [FloatValidator]
     },
-    
+    "Any complicatioj": {
+        name: "Any complicatioj",
+        displayName: "Any complicatioj",
+        validators: [FloatValidator]
+    },
+    "Patho % ": {
+        name: "Patho % ",
+        displayName: "Patho % ",
+        validators: [FloatValidator]
+    },
+    "n specimens inv": {
+        name: "n specimens inv",
+        displayName: "n specimens inv",
+        validators: [FloatValidator]
+    },
+    complications___ssi: {
+        name: "complications___ssi",
+        displayName: "complications___ssi",
+        validators: [FloatValidator]
+    },
+    hospital_stay_days: {
+        name: "hospital_stay_days",
+        displayName: "hospital_stay_days",
+        validators: [FloatValidator]
+    },
+    icu_stay_days: {
+        name: "icu_stay_days",
+        displayName: "icu_stay_days",
+        validators: [FloatValidator]
+    },
+    reoperation: {
+        name: "reoperation",
+        displayName: "Reoperation",
+        validators: [FloatValidator]
+    }
 }
 
