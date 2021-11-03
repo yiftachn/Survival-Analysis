@@ -46,7 +46,6 @@ const LoadingScreen: FC = () => {
             const enrichedScatterPoints = graphLogic.getEnrichedSctterPoints(scatteredPoints);
             console.log(enrichedScatterPoints);
             GraphStore.enrichedScatterPoints.next(enrichedScatterPoints);
-            // console.log(response);
 
             if (isMounted())
                 history.push('/result');
