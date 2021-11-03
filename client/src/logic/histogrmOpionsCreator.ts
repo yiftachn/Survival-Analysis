@@ -2,6 +2,10 @@ import Highcharts, { TooltipFormatterContextObject } from "highcharts/highstock"
 import EnrichedPoint from "../common/EnrichedPoint";
 import Point from "../common/Point";
 
+const MAIN_COLOR = "#FFFFFF";
+const SECONDARY_COLOR = "#FF0000";
+const THIRD_COLOR = "#00FF00"
+
 class HistogrmOpionsCreator {
 
   private histogramOptions: Highcharts.Options;
@@ -16,7 +20,7 @@ class HistogrmOpionsCreator {
         type: 'category',
         labels: {
           style: {
-            color: "#FFFFFF"
+            color: MAIN_COLOR
           }
         }
       },
@@ -43,7 +47,7 @@ class HistogrmOpionsCreator {
       name: "Scatter points",
       type: "scatter",
       data: scatterPoints,
-      color: "#FF0000",
+      color: THIRD_COLOR,
       marker: { radius: 8 },
     });
 
@@ -54,7 +58,7 @@ class HistogrmOpionsCreator {
     this.histogramOptions.series?.push({
       name: "survival function",
       type: "line",
-      color: "#00FF00",
+      color: SECONDARY_COLOR,
       data: linePoints,
       dataLabels: { enabled: false }
     });
@@ -67,7 +71,7 @@ class HistogrmOpionsCreator {
       ...this.histogramOptions,
       title: {
         text: title,
-        style: { color: "#FFFFFF" }
+        style: { color: MAIN_COLOR }
       }
     };
 
@@ -98,12 +102,33 @@ class HistogrmOpionsCreator {
         title: {
           text: title,
           style: {
-            color: "#FFFFFF"
+            color: MAIN_COLOR
           }
         },
         labels: {
           style: {
-            color: "#FFFFFF"
+            color: MAIN_COLOR
+          }
+        }
+      }
+    }
+
+    return this;
+  };
+
+  SetXAxisTitle = (title: string) => {
+    this.histogramOptions = {
+      ...this.histogramOptions,
+      xAxis: {
+        title: {
+          text: title,
+          style: {
+            color: MAIN_COLOR
+          }
+        },
+        labels: {
+          style: {
+            color: MAIN_COLOR
           }
         }
       }
@@ -118,4 +143,4 @@ class HistogrmOpionsCreator {
 
 }
 
-export default HistogrmOpionsCreator
+export default HistogrmOpionsCreator;

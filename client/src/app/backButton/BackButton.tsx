@@ -1,14 +1,17 @@
 import React, { FC } from "react";
 import { Button } from '@mui/material';
+import { useHistory } from "react-router-dom";
 
-interface BackButtonProps {
-    onBackButtonClicked: () => void;
-}
 
-const BackButton: FC<BackButtonProps> = ({onBackButtonClicked}) => {
+const BackButton: FC = () => {
+    const history = useHistory();
+
+    const handleBackButtonClicked = () => {
+        history.push("/");
+    };
 
     return (
-        <Button color="secondary" variant="contained" onClick={onBackButtonClicked} fullWidth>Back</Button>
+        <Button color="secondary" variant="contained" onClick={handleBackButtonClicked} fullWidth>Back</Button>
     );
 };
 

@@ -1,5 +1,4 @@
-import { Delete } from "@mui/icons-material";
-import { Box, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
+import { InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
 import React, { FC, useEffect, useState } from "react";
 import { FeatureType } from "../../model/featureMetadata";
 import styles from "./FeatureField.module.scss";

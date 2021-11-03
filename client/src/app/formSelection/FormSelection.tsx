@@ -1,5 +1,5 @@
 import { InputLabel, TextField, ButtonGroup, Button } from "@mui/material";
-import React, { FC, useEffect, useMemo, useState } from "react";
+import React, { FC, useEffect, useMemo } from "react";
 import useRxSubscription from "../../hooks/useRxSubscription";
 import { stepToDisplayName, SurgeryStep } from "../../model/surgeryStep";
 import FormStore from "../../store/FormStore";

@@ -1,10 +1,8 @@
 import { useTheme } from '@emotion/react';
-import { Button } from '@mui/material';
 import React, { FC, useEffect, useState } from 'react';
 import Loader from 'react-loader-spinner';
 import { useHistory } from 'react-router-dom';
 import useAsyncEffect from 'use-async-effect';
-import Point from '../../common/Point';
 import useRxSubscription from '../../hooks/useRxSubscription';
 import GraphLogic from '../../logic/graphLogic';
 import SurvivalAnalysisRequestCreator from '../../logic/survivalAnalysisRequestCreator';
@@ -35,10 +33,6 @@ const LoadingScreen: FC = () => {
 
     const dots = ".".repeat(dotNumbers);
 
-    const clickGoBack = () => {
-        history.push('/');
-    };
-
     useAsyncEffect(async (isMounted: () => boolean) => {
         try {
             const request = requestCreator.createRequest();
@@ -60,7 +54,7 @@ const LoadingScreen: FC = () => {
         <div className={styles.container}>
             <Loader type="TailSpin" color={palette.primary.main} width={100} height={100} />
             <p className={styles.calculatingText}>Calculating Survival Analysis for {patientId + dots}</p>
-            <BackButton onBackButtonClicked={clickGoBack} />
+            <BackButton />
         </div >
     );
 };

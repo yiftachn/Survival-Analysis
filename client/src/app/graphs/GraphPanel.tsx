@@ -1,4 +1,3 @@
-import { useHistory } from 'react-router-dom';
 import PieChart from "highcharts-react-official";
 import Highcharts from "highcharts/highstock";
 import { Box } from "@mui/material";
@@ -8,20 +7,18 @@ import HistogrmOpionsCreator from "../../logic/histogrmOpionsCreator";
 import useRxSubscription from "../../hooks/useRxSubscription";
 import GraphStore from "../../store/GraphStore";
 import BackButton from '../backButton/BackButton';
+import FormStore from '../../store/FormStore';
 
 
 const GraphPanel: FC = () => {
+    const [patinetId] = useRxSubscription(FormStore.patientId);
     const [enrichedScatterPoints] = useRxSubscription(GraphStore.enrichedScatterPoints);
-    const history = useHistory();
     const histogrmOpionsCreator = new HistogrmOpionsCreator();
 
-    const clickGoBack = () => {
-        history.push('/');
-    };
-
-    histogrmOpionsCreator.AddTitle("Precentage of survival").
+    histogrmOpionsCreator.AddTitle(`Survival Percentage for ${patinetId}`).
         SetNumberOFDigitsAfterTheDot(3).
-        SetYAxisTitle("Percent of survival").
+        SetYAxisTitle("Survival Percentage").
+        SetXAxisTitle("Month").
         AddLinePoints(GraphStore.linePoints).
         AddScatterPoints(enrichedScatterPoints);
 
@@ -29,9 +26,8 @@ const GraphPanel: FC = () => {
         <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
             <div className={styles.container}>
                 <PieChart highcharts={Highcharts} options={histogrmOpionsCreator.GetHistogramOptions()} />
-                <BackButton onBackButtonClicked={clickGoBack} />
+                <BackButton />
             </div>
-
         </Box>
     );
 };

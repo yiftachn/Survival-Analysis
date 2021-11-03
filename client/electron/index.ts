@@ -9,9 +9,8 @@ function createWindow() {
   const windowOptions: BrowserWindowConstructorOptions = {
     minWidth: 800,
     minHeight: 600,
-    icon: './dist/vite/WindowIcon.ico',
+    icon: __dirname + '/dist/vite/WindowIcon.ico',
     backgroundColor: "black",
-    titleBarStyle: "customButtonsOnHover",
     autoHideMenuBar: true,
     trafficLightPosition: {
       x: 20,
@@ -46,10 +45,14 @@ function createWindow() {
     x: windowState.x,
     y: windowState.y,
     width: windowState.width,
-    height: windowState.height
+    height: windowState.height,
   });
 
   windowState.manage(browserWindow);
+
+  browserWindow.webContents.on('will-navigate', (event) => {
+    event.preventDefault()
+  });
 
   browserWindow.once("ready-to-show", () => {
     browserWindow.show();
