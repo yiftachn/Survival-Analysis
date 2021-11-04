@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 import Point from "../common/Point";
 import StringDictionary from "../common/stringDictionary";
 import SurgeryAnalysisRequest from "../model/surgeryAnalysisRequest";
