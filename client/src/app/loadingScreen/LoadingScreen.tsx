@@ -4,7 +4,7 @@ import Loader from 'react-loader-spinner';
 import { useHistory } from 'react-router-dom';
 import useAsyncEffect from 'use-async-effect';
 import useRxSubscription from '../../hooks/useRxSubscription';
-import GraphLogic from '../../logic/graphLogic';
+import GraphLogic from '../../logic/GraphLogic';
 import SurvivalAnalysisRequestCreator from '../../logic/survivalAnalysisRequestCreator';
 import SurvivalCalculator from '../../logic/survivalCalculator';
 import FormStore from '../../store/FormStore';

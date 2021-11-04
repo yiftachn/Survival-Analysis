@@ -46,7 +46,7 @@ class GraphLogic {
     }
 
     private getPointDescription = (pointOffset: number): string =>{
-        return  `${Math.abs(pointOffset)}% ${(pointOffset >= 0)? "Above average" : "Below average"}`;
+        return  `${(Math.abs(pointOffset)).toFixed(2)}% ${(pointOffset >= 0)? "Above average" : "Below average"}`;
     }
 
 }

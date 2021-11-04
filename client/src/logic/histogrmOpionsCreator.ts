@@ -5,6 +5,8 @@ import Point from "../common/Point";
 const MAIN_COLOR = "#FFFFFF";
 const SECONDARY_COLOR = "#00FF00";
 const THIRD_COLOR = "#FF0000"
+const DIGITS_AFTER_DOT = 2;
+const MAX_YAXIAS_HEIGHT = 100;
 
 class HistogrmOpionsCreator {
 
@@ -33,7 +35,8 @@ class HistogrmOpionsCreator {
       series: [],
       tooltip: {
         formatter(this: TooltipFormatterContextObject) {
-          let tooltip = `<br>X : ${this.x}<br>Y : ${this.y}<br>`;
+          let tooltip = `<br>X : ${this.x.toFixed(DIGITS_AFTER_DOT)}
+              <br>Y : ${this.y.toFixed(DIGITS_AFTER_DOT)}<br>`;
           if (this.series.name === "Scatter points") {
             // @ts-ignore
             tooltip += `${this.point.description}`
@@ -45,7 +48,7 @@ class HistogrmOpionsCreator {
     }
   };
 
-  AddScatterPoints = (scatterPoints: EnrichedPoint[]) => {
+  public AddScatterPoints = (scatterPoints: EnrichedPoint[]) => {
     this.histogramOptions.series?.push({
       name: "Scatter points",
       type: "scatter",
@@ -57,7 +60,7 @@ class HistogrmOpionsCreator {
     return this;
   };
 
-  AddLinePoints = (linePoints: Point[]) => {
+  public AddLinePoints = (linePoints: Point[]) => {
     this.histogramOptions.series?.push({
       name: "survival function",
       type: "line",
@@ -69,7 +72,7 @@ class HistogrmOpionsCreator {
     return this;
   }
 
-  AddTitle = (title: string) => {
+  public AddTitle = (title: string) => {
     this.histogramOptions = {
       ...this.histogramOptions,
       title: {
@@ -81,7 +84,7 @@ class HistogrmOpionsCreator {
     return this;
   }
 
-  SetNumberOFDigitsAfterTheDot = (numberOfDigits: number) => {
+  public SetNumberOFDigitsAfterTheDot = (numberOfDigits: number) => {
     this.histogramOptions = {
       ...this.histogramOptions,
       plotOptions: {
@@ -98,7 +101,7 @@ class HistogrmOpionsCreator {
     return this;
   };
 
-  SetYAxisTitle = (title: string) => {
+  public SetYAxisTitle = (title: string) => {
     this.histogramOptions = {
       ...this.histogramOptions,
       yAxis: {
@@ -112,14 +115,15 @@ class HistogrmOpionsCreator {
           style: {
             color: MAIN_COLOR
           }
-        }
+        },
+        max: MAX_YAXIAS_HEIGHT
       }
     }
 
     return this;
   };
 
-  SetXAxisTitle = (title: string) => {
+  public SetXAxisTitle = (title: string) => {
     this.histogramOptions = {
       ...this.histogramOptions,
       xAxis: {
@@ -140,9 +144,10 @@ class HistogrmOpionsCreator {
     return this;
   };
 
-  GetHistogramOptions = () => {
+  public GetHistogramOptions = () => {
     return this.histogramOptions;
   }
+
 
 }
 
