@@ -7,9 +7,15 @@ export const FloatValidator: Validator = {
     validate: (value: string) => {
         return /^[0-9]+(\.[0-9]{1,2})?$/.test(value);
     },
-    errorMessage: 'Must be a valid number'
+    errorMessage: 'Must be a decimal number'
 }
 
+export const IntValidator: Validator = {
+    validate: (value: string) => {
+        return /^-?(0|[1-9]\d*)$/.test(value);
+    },
+    errorMessage: 'Must be a natural number'
+}
 
 export const AgeValidator: Validator = {
     validate: (value: string) => {
