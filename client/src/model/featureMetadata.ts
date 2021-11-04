@@ -7,7 +7,7 @@ export const preperationFeatures = ["age", "gender", "weight", "height", "BMI", 
 export const surgeryFeatures = ["obesity", "extra_peritoneal___none", "extra_peritoneal___rplnd", "extra_peritoneal___pelvis",
     "anastomosis___sb_sb", "anastomosis___sb_colon", "resections___sb", "resections___parietal_peritonectomy",
     "resections___pelvic_peritonectomy", "resections___ruq", "resections___ileostomy", "resections___appendix",
-    "LUQ", "Pelvic", "RLQ", "Upper Jej", "Low Jej", "Upper ileum", "PCI", "Pelvic Peritonectomy"] as const;
+    "LUQ", "Pelvic", "RLQ", "Upper Jej", "Low Jej", "Upper ileum", "PCI", "Pelvic Peritonectomy", "Liver involvment", "RUQ"] as const;
 
 export const postSurgeryFeatures = ["extra_peritoneal___none", "anastomosis___sb_sb", "resections___sb",
     "resections___parietal_peritonectomy", "resections___pelvic_peritonectomy", "resections___ruq",
@@ -266,6 +266,19 @@ export const featureToDetails: { [key in FeatureType]: FeatureDetails } = {
         validators: [],
         choices: booleanOptions,
         toNumber: booleanToNumber
+    },
+    "Liver involvment": {
+        name: "Liver involvment",
+        displayName: "Liver involvment",
+        validators: [],
+        choices: booleanOptions,
+        toNumber: booleanToNumber
+    },
+    RUQ: {
+        name: "RUQ",
+        displayName: "RUQ",
+        validators: [FloatValidator],
     }
+    
 }
 
