@@ -30,14 +30,22 @@ class HistogrmOpionsCreator {
         }
       },
       legend: {
-        enabled: false
+        itemHoverStyle: {
+          color: "#b6b8b6"
+        },
+        itemStyle: {
+          color: MAIN_COLOR
+        },
+        enabled: true,
+        align: "left",
+        verticalAlign: "top"
       },
       series: [],
       tooltip: {
         formatter(this: TooltipFormatterContextObject) {
           let tooltip = `<br>X : ${this.x.toFixed(DIGITS_AFTER_DOT)}
               <br>Y : ${this.y.toFixed(DIGITS_AFTER_DOT)}<br>`;
-          if (this.series.name === "Scatter points") {
+          if (this.series.name === "Scatter Points") {
             // @ts-ignore
             tooltip += `${this.point.description}`
           }
@@ -50,7 +58,7 @@ class HistogrmOpionsCreator {
 
   public AddScatterPoints = (scatterPoints: EnrichedPoint[]) => {
     this.histogramOptions.series?.push({
-      name: "Scatter points",
+      name: "Scatter Points",
       type: "scatter",
       data: scatterPoints,
       color: THIRD_COLOR,
@@ -62,7 +70,7 @@ class HistogrmOpionsCreator {
 
   public AddLinePoints = (linePoints: Point[]) => {
     this.histogramOptions.series?.push({
-      name: "survival function",
+      name: "Survival Function",
       type: "line",
       color: SECONDARY_COLOR,
       data: linePoints,

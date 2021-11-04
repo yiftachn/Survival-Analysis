@@ -20,7 +20,7 @@ const LoadingScreen: FC = () => {
     const [dotNumbers, setDotNumbers] = useState(0);
     const [patientId] = useRxSubscription(FormStore.patientId);
     const history = useHistory();
-    const graphLogic = GraphEnricher.getInstance();
+    const graphEnricher = GraphEnricher.getInstance();
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -37,7 +37,7 @@ const LoadingScreen: FC = () => {
         try {
             const request = requestCreator.createRequest();
             const scatteredPoints = await survivalCalculator.calculateSurvival(request);
-            const enrichedScatterPoints = graphLogic.getEnrichedSctterPoints(scatteredPoints);
+            const enrichedScatterPoints = graphEnricher.getEnrichedSctterPoints(scatteredPoints);
             console.log(enrichedScatterPoints);
             GraphStore.enrichedScatterPoints.next(enrichedScatterPoints);
 
