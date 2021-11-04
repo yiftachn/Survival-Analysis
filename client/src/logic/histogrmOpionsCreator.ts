@@ -12,6 +12,9 @@ class HistogrmOpionsCreator {
 
   constructor() {
     this.histogramOptions = {
+      credits: {
+        enabled: false
+      },
       chart: {
         type: "column",
         backgroundColor: "rgba(0,0,0,0)"
