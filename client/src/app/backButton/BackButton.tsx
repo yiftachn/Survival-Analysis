@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { Button } from '@mui/material';
 import { useHistory } from "react-router-dom";
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
 
 const BackButton: FC = () => {
@@ -11,7 +12,7 @@ const BackButton: FC = () => {
     };
 
     return (
-        <Button color="secondary" variant="contained" onClick={handleBackButtonClicked} fullWidth>Back</Button>
+        <Button color="secondary" variant="contained" onClick={handleBackButtonClicked} fullWidth><ArrowBackIosNewIcon />Back</Button>
     );
 };
 

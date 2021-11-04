@@ -1,7 +1,7 @@
 export type SurgeryStep = "pre" | "intra" | "post";
 
 export const stepToDisplayName: { [_ in SurgeryStep]: string } = {
-    pre: "Preparation",
+    pre: "Pre Surgery",
     intra: "Surgery",
     post: "Post Surgery"
 };
