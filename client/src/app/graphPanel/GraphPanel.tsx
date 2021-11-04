@@ -38,15 +38,9 @@ const GraphPanel: FC = () => {
     return (
         <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
             <div className={styles.container}>
+                <BackButton />
                 <PieChart highcharts={Highcharts} options={histogrmOpionsCreator.GetHistogramOptions()} />
-                <Grid container spacing={2}>
-                    <Grid item xs={6} >
-                        <BackButton />
-                    </Grid>
-                    <Grid item xs={6}>
-                        <Button color="secondary" variant="contained" onClick={downloadScreenshot} fullWidth>Save as Image <SaveIcon /></Button>
-                    </Grid>
-                </ Grid>
+                <Button color="secondary" variant="contained" onClick={downloadScreenshot} fullWidth>Save as Image <SaveIcon /></Button>
             </div>
         </Box>
     );

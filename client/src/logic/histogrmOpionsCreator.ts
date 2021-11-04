@@ -3,8 +3,8 @@ import EnrichedPoint from "../common/EnrichedPoint";
 import Point from "../common/Point";
 
 const MAIN_COLOR = "#FFFFFF";
-const SECONDARY_COLOR = "#FF0000";
-const THIRD_COLOR = "#00FF00"
+const SECONDARY_COLOR = "#00FF00";
+const THIRD_COLOR = "#FF0000"
 
 class HistogrmOpionsCreator {
 

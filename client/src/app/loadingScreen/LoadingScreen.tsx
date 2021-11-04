@@ -51,11 +51,14 @@ const LoadingScreen: FC = () => {
     }, [survivalCalculator, requestCreator, history]);
 
     return (
-        <div className={styles.container}>
-            <Loader type="TailSpin" color={palette.primary.main} width={100} height={100} />
-            <p className={styles.calculatingText}>Calculating Survival Analysis for {patientId + dots}</p>
-            <BackButton />
-        </div >
+        <>
+
+            <div className={styles.container}>
+                <BackButton />
+                <Loader type="TailSpin" color={palette.primary.main} width={100} height={100} />
+                <p className={styles.calculatingText}>Calculating Survival Analysis for {patientId + dots}</p>
+            </div >
+        </>
     );
 };
 

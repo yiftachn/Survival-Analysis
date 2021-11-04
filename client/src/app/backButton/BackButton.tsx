@@ -1,7 +1,8 @@
 import React, { FC } from "react";
-import { Button } from '@mui/material';
+import { IconButton } from '@mui/material';
 import { useHistory } from "react-router-dom";
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import styles from "./BackButton.module.scss";
 
 
 const BackButton: FC = () => {
@@ -12,7 +13,7 @@ const BackButton: FC = () => {
     };
 
     return (
-        <Button color="secondary" variant="contained" onClick={handleBackButtonClicked} fullWidth><ArrowBackIosNewIcon />Back</Button>
+        <IconButton onClick={handleBackButtonClicked} className={styles.icon} color="primary"><ArrowBackIcon fontSize="inherit" /></IconButton>
     );
 };
 
