@@ -3,20 +3,38 @@ from typing import List
 import pandas as pd
 import numpy as np
 import config
+from etl.feature_engineering import count_resections, count_complications, count_anastamosis, count_extra_paritoneal
 
 
-def get_df_for_stage(stage, kupitz=False):
+def get_df_for_stage(stage, return_all_features=False,keep_only_aggs=False):
     survival_analysis_df = load_and_clean_survival_analysis_df()
     desc_df = load_and_clean_desc_df()
     important_columns = ['survival_time_in_months', 'death']
     if stage == "post":
-        survival_analysis_df = survival_analysis_df[get_post_df(desc_df, important_columns, kupitz)]
+        survival_analysis_df = survival_analysis_df[get_post_df(desc_df, important_columns, return_all_features)]
+        if return_all_features:
+            survival_analysis_df = add_aggs(survival_analysis_df, keep_only_aggs)
     elif stage == "pre":
-        survival_analysis_df = survival_analysis_df[get_pre_df(desc_df, important_columns, kupitz)]
+        survival_analysis_df = survival_analysis_df[get_pre_df(desc_df, important_columns, return_all_features)]
     elif stage == "intra":
-        survival_analysis_df = survival_analysis_df[get_intra_df(desc_df, important_columns, kupitz)]
+        survival_analysis_df = survival_analysis_df[get_intra_df(desc_df, important_columns, return_all_features)]
+        if return_all_features:
+            survival_analysis_df = add_aggs(survival_analysis_df, keep_only_aggs)
     return survival_analysis_df
 
+
+def add_aggs(df,keep_only_aggs=False):
+    df['resections_count'] = count_resections(df)
+    df['anastamoses_count'] = count_anastamosis(df)
+    df['complications_count'] = count_complications(df)
+    df['extra_paritoneal_count'] = count_extra_paritoneal(df)
+    if keep_only_aggs:
+        df = df.drop(config.RESECTIONS_FEATURES,axis=1)
+        df = df.drop(config.ANASTAMOSES_FEATURES,axis=1)
+        df = df.drop(config.COMPLICATIONS_FEATURES,axis=1)
+        df = df.drop(config.EXTRA_PARITONEAL_FEATURES,axis=1)
+
+    return df
 
 def fix_bmi_column(survival_analysis_df):
     survival_analysis_df = survival_analysis_df.copy()
@@ -94,10 +112,10 @@ def load_and_clean_desc_df():
     return desc_df
 
 
-def get_pre_df(desc_df, important_columns, kupitz=False):
+def get_pre_df(desc_df, important_columns, return_all_features=False):
     pre_features = get_features_by_stage(desc_df, 'pre')
     pre_df_features = pre_features + important_columns
-    if not kupitz:
+    if not return_all_features:
         pre_df_features = [feature for feature in pre_df_features if feature in config.PRE_FEATURES_TO_KEEP]  + important_columns
     else:
         for feature in important_columns:
@@ -106,11 +124,11 @@ def get_pre_df(desc_df, important_columns, kupitz=False):
     return pre_df_features
 
 
-def get_intra_df(desc_df, important_columns, kupitz=False):
+def get_intra_df(desc_df, important_columns, return_all_features=False):
     intra_features = get_features_by_stage(desc_df, 'intra')
-    pre_df_features = get_pre_df(desc_df, important_columns, kupitz)
+    pre_df_features = get_pre_df(desc_df, important_columns, return_all_features)
     intra_df_features = pre_df_features + intra_features
-    if not kupitz:
+    if not return_all_features:
         intra_df_features = [feature for feature in intra_df_features if feature in config.INTRA_FEATURES_TO_KEEP] + important_columns
     else:
         for feature in important_columns:
@@ -119,11 +137,11 @@ def get_intra_df(desc_df, important_columns, kupitz=False):
     return intra_df_features
 
 
-def get_post_df(desc_df, important_columns, kupitz=False):
+def get_post_df(desc_df, important_columns, return_all_features=False):
     post_features = get_features_by_stage(desc_df, 'post')
-    intra_df_features = get_intra_df(desc_df, important_columns, kupitz)
+    intra_df_features = get_intra_df(desc_df, important_columns, return_all_features)
     post_df_features = intra_df_features + post_features
-    if not kupitz:
+    if not return_all_features:
         post_df_features = [feature for feature in post_df_features if feature in config.POST_FEATURES_TO_KEEP] + important_columns
     else:
         for feature in important_columns:

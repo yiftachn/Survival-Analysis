@@ -1,5 +1,5 @@
 program: ./models/random_forest_model.py
-method: bayes
+method: random
 metric:
   name: negative_brier
   goal: maximize
@@ -15,4 +15,4 @@ parameters:
   dataset:
     values: ['pre','intra','post']
   time_of_eval:
-    values: [3,12,30]
+    values: [3,6,12,24]
