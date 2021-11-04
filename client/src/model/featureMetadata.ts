@@ -1,5 +1,5 @@
 import FeatureDetails from "./featureDetails";
-import { FloatValidator, AgeValidator, WeightValidator } from "./validators";
+import { FloatValidator, AgeValidator, WeightValidator, IntValidator } from "./validators";
 
 export const preperationFeatures = ["age", "gender", "weight", "height", "BMI", "DM",
     "HTN", "Renal", "IHD", "COPD", "obesity", "Cva", "asa", "Tumor_origin"] as const;
@@ -105,7 +105,7 @@ export const featureToDetails: { [key in FeatureType]: FeatureDetails } = {
     Tumor_origin: {
         name: "Tumor_origin",
         displayName: "Tumor Origin",
-        validators: [FloatValidator]
+        validators: [IntValidator]
     },
     extra_peritoneal___none: {
         name: "extra_peritoneal___none",
@@ -187,37 +187,37 @@ export const featureToDetails: { [key in FeatureType]: FeatureDetails } = {
     LUQ: {
         name: "LUQ",
         displayName: "LUQ",
-        validators: [FloatValidator]
+        validators: [IntValidator]
     },
     Pelvic: {
         name: "Pelvic",
         displayName: "Pelvic",
-        validators: [FloatValidator]
+        validators: [IntValidator]
     },
     RLQ: {
         name: "RLQ",
         displayName: "RLQ",
-        validators: [FloatValidator]
+        validators: [IntValidator]
     },
     "Upper Jej": {
         name: "Upper Jej",
         displayName: "Upper Jej",
-        validators: [FloatValidator]
+        validators: [IntValidator]
     },
     "Low Jej": {
         name: "Low Jej",
         displayName: "Low Jej",
-        validators: [FloatValidator]
+        validators: [IntValidator]
     },
     "Upper ileum": {
         name: "Upper ileum",
         displayName: "Upper Ileum",
-        validators: [FloatValidator]
+        validators: [IntValidator]
     },
     PCI: {
         name: "PCI",
         displayName: "PCI",
-        validators: [FloatValidator]
+        validators: [IntValidator]
     },
     "Pelvic Peritonectomy": {
         name: "Pelvic Peritonectomy",
@@ -241,7 +241,7 @@ export const featureToDetails: { [key in FeatureType]: FeatureDetails } = {
     "n specimens inv": {
         name: "n specimens inv",
         displayName: "n specimens inv",
-        validators: [FloatValidator]
+        validators: [IntValidator]
     },
     complications___ssi: {
         name: "complications___ssi",
@@ -277,7 +277,7 @@ export const featureToDetails: { [key in FeatureType]: FeatureDetails } = {
     RUQ: {
         name: "RUQ",
         displayName: "RUQ",
-        validators: [FloatValidator],
+        validators: [IntValidator],
     }
     
 }
