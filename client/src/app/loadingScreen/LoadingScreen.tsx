@@ -4,7 +4,7 @@ import Loader from 'react-loader-spinner';
 import { useHistory } from 'react-router-dom';
 import useAsyncEffect from 'use-async-effect';
 import useRxSubscription from '../../hooks/useRxSubscription';
-import GraphLogic from '../../logic/GraphLogic';
+import GraphEnricher from '../../logic/GraphEnricher';
 import SurvivalAnalysisRequestCreator from '../../logic/survivalAnalysisRequestCreator';
 import SurvivalCalculator from '../../logic/survivalCalculator';
 import FormStore from '../../store/FormStore';
@@ -20,7 +20,7 @@ const LoadingScreen: FC = () => {
     const [dotNumbers, setDotNumbers] = useState(0);
     const [patientId] = useRxSubscription(FormStore.patientId);
     const history = useHistory();
-    const graphLogic = GraphLogic.getInstance();
+    const graphLogic = GraphEnricher.getInstance();
 
     useEffect(() => {
         const interval = setInterval(() => {
