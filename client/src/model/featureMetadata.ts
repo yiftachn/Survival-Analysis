@@ -17,8 +17,7 @@ export const postSurgeryFeatures = ["extra_peritoneal___none", "anastomosis___sb
 
 export type FeatureType = typeof preperationFeatures[number] | typeof surgeryFeatures[number] | typeof postSurgeryFeatures[number];
 
-const booleanOptions = ["True", "False"];
-const booleanToNumber = (value: string) => value === "True" ? 1 : 0;
+const booleanOptions = ["False", "True"];
 
 export const featureToDetails: { [key in FeatureType]: FeatureDetails } = {
     age: {
@@ -30,8 +29,7 @@ export const featureToDetails: { [key in FeatureType]: FeatureDetails } = {
         name: "gender",
         displayName: "Gender",
         validators: [],
-        choices: ["Male", "Female"],
-        toNumber: (value: string) => value === "Male" ? 0 : 1
+        choices: ["Male", "Female"]
     },
     weight: {
         name: "weight",
@@ -50,52 +48,45 @@ export const featureToDetails: { [key in FeatureType]: FeatureDetails } = {
     },
     DM: {
         name: "DM",
-        displayName: "DM",
+        displayName: "Diabetes Melitus",
         validators: [],
-        choices: booleanOptions,
-        toNumber: booleanToNumber
+        choices: booleanOptions
     },
     HTN: {
         name: "HTN",
         displayName: "Hypertension",
         validators: [],
-        choices: booleanOptions,
-        toNumber: booleanToNumber
+        choices: booleanOptions
     },
     Renal: {
         name: "Renal",
         displayName: "Renal Disfunction",
         validators: [],
-        choices: booleanOptions,
-        toNumber: booleanToNumber
+        choices: booleanOptions
     },
     IHD: {
         name: "IHD",
         displayName: "Ischemic Heart Disease",
         validators: [],
-        choices: booleanOptions,
-        toNumber: booleanToNumber
+        choices: booleanOptions
     },
     COPD: {
         name: "COPD",
         displayName: "Chronic Obstructive Pulmonary Disease",
         validators: [],
-        choices: booleanOptions,
-        toNumber: booleanToNumber
+        choices: booleanOptions
     },
     obesity: {
         name: "obesity",
         displayName: "Obesity",
         validators: [],
-        choices: booleanOptions,
-        toNumber: booleanToNumber
+        choices: booleanOptions
     },
     Cva: {
         name: "Cva",
         displayName: "Cardiovascular Accident",
         validators: [],
-        choices: booleanOptions,
-        toNumber: booleanToNumber
+        choices: booleanOptions
     },
     asa: {
         name: "asa",
@@ -111,78 +102,67 @@ export const featureToDetails: { [key in FeatureType]: FeatureDetails } = {
         name: "extra_peritoneal___none",
         displayName: "Extra Peritoneal None",
         validators: [],
-        choices: booleanOptions,
-        toNumber: booleanToNumber
+        choices: booleanOptions
     },
     extra_peritoneal___rplnd: {
         name: "extra_peritoneal___rplnd",
         displayName: "Extra Peritoneal Rplnd",
         validators: [],
-        choices: booleanOptions,
-        toNumber: booleanToNumber
+        choices: booleanOptions
     },
     extra_peritoneal___pelvis: {
         name: "extra_peritoneal___pelvis",
         displayName: "Extra Peritoneal Pelvis",
         validators: [],
-        choices: booleanOptions,
-        toNumber: booleanToNumber
+        choices: booleanOptions
     },
     anastomosis___sb_sb: {
         name: "anastomosis___sb_sb",
         displayName: "Anastomosis Sb Sb",
         validators: [],
-        choices: booleanOptions,
-        toNumber: booleanToNumber
+        choices: booleanOptions
     },
     anastomosis___sb_colon: {
         name: "anastomosis___sb_colon",
         displayName: "Anastomosis Sb Colon",
         validators: [],
-        choices: booleanOptions,
-        toNumber: booleanToNumber
+        choices: booleanOptions
     },
     resections___sb: {
         name: "resections___sb",
         displayName: "Resections Sb",
         validators: [],
-        choices: booleanOptions,
-        toNumber: booleanToNumber
+        choices: booleanOptions
     },
     resections___parietal_peritonectomy: {
         name: "resections___parietal_peritonectomy",
         displayName: "Resections Parietal Peritonectomy",
         validators: [],
-        choices: booleanOptions,
-        toNumber: booleanToNumber
+        choices: booleanOptions
     },
     resections___pelvic_peritonectomy: {
         name: "resections___pelvic_peritonectomy",
-        displayName: "resections Pelvic Peritonectomy",
+        displayName: "Resections Pelvic Peritonectomy",
         validators: [],
-        choices: booleanOptions,
-        toNumber: booleanToNumber
+        choices: booleanOptions
     },
     resections___ruq: {
         name: "resections___ruq",
         displayName: "Resections Ruq",
         validators: [],
-        choices: booleanOptions,
-        toNumber: booleanToNumber
+        choices: booleanOptions
     },
     resections___ileostomy: {
         name: "resections___ileostomy",
         displayName: "Resections Ileostomy",
         validators: [],
-        choices: booleanOptions,
-        toNumber: booleanToNumber
+        choices: booleanOptions
     },
     resections___appendix: {
         name: "resections___appendix",
         displayName: "Resections Appendix",
         validators: [],
-        choices: booleanOptions,
-        toNumber: booleanToNumber
+        choices: booleanOptions
     },
     LUQ: {
         name: "LUQ",
@@ -223,15 +203,13 @@ export const featureToDetails: { [key in FeatureType]: FeatureDetails } = {
         name: "Pelvic Peritonectomy",
         displayName: "Pelvic Peritonectomy",
         validators: [],
-        choices: booleanOptions,
-        toNumber: booleanToNumber
+        choices: booleanOptions
     },
     "Any complicatioj": {
         name: "Any complicatioj",
         displayName: "Any Complications",
         validators: [],
-        choices: booleanOptions,
-        toNumber: booleanToNumber
+        choices: booleanOptions
     },
     "Patho % ": {
         name: "Patho % ",
@@ -245,10 +223,9 @@ export const featureToDetails: { [key in FeatureType]: FeatureDetails } = {
     },
     complications___ssi: {
         name: "complications___ssi",
-        displayName: "Complications Ssi",
+        displayName: "Complications SSI",
         validators: [],
-        choices: booleanOptions,
-        toNumber: booleanToNumber
+        choices: booleanOptions
     },
     hospital_stay_days: {
         name: "hospital_stay_days",
@@ -257,27 +234,25 @@ export const featureToDetails: { [key in FeatureType]: FeatureDetails } = {
     },
     icu_stay_days: {
         name: "icu_stay_days",
-        displayName: "Icu Stay Days",
+        displayName: "ICU Stay Days",
         validators: [FloatValidator]
     },
     reoperation: {
         name: "reoperation",
         displayName: "Reoperation",
         validators: [],
-        choices: booleanOptions,
-        toNumber: booleanToNumber
+        choices: booleanOptions
     },
     "Liver involvment": {
         name: "Liver involvment",
-        displayName: "Liver involvment",
+        displayName: "Liver Involvment",
         validators: [],
-        choices: booleanOptions,
-        toNumber: booleanToNumber
+        choices: booleanOptions
     },
     RUQ: {
         name: "RUQ",
         displayName: "RUQ",
-        validators: [IntValidator],
+        validators: [IntValidator]
     }
     
 }

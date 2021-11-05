@@ -1,6 +1,4 @@
 import React, { FC } from "react";
-import Point from "../../common/Point";
-import StringDictionary from "../../common/stringDictionary";
 import Logo from "../logo/Logo";
 import SurvivalAnalysisRouter from "../survivalAnalysisRouter/SurvivalAnalysisRouter";
 import styles from "./SurvivalAnalysis.module.scss";

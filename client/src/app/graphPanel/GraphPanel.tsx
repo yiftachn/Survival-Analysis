@@ -1,6 +1,6 @@
 import PieChart from "highcharts-react-official";
 import Highcharts from "highcharts/highstock";
-import { Box, Button, Grid } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import React, { FC } from "react";
 import { toPng } from "html-to-image";
 import download from "downloadjs";

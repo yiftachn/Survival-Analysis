@@ -5,16 +5,16 @@ export interface Validator {
 
 export const FloatValidator: Validator = {
     validate: (value: string) => {
-        return /^[0-9]+(\.[0-9]{1,2})?$/.test(value);
+        return /^[0-9]+(\.[0-9]+)?$/.test(value);
     },
-    errorMessage: 'Must be a decimal number'
+    errorMessage: 'Must be a decimal or whole number'
 }
 
 export const IntValidator: Validator = {
     validate: (value: string) => {
         return /^-?(0|[1-9]\d*)$/.test(value);
     },
-    errorMessage: 'Must be a natural number'
+    errorMessage: 'Must be a whole number'
 }
 
 export const AgeValidator: Validator = {

@@ -17,7 +17,13 @@ const FeatureField: FC<FeatureProps> = ({ feature, onValueChanged, onValidityCha
     const convertToNumber = (value: string) => {
         if (value === "")
             return undefined;
-        return feature.toNumber ? feature.toNumber(value) : parseFloat(value);
+        if (feature.toNumber)
+            return feature.toNumber(value);
+
+        if (feature.choices)
+            return feature.choices.findIndex(_ => _ === value);
+
+        return parseFloat(value);
     }
 
     const handleFeatureValueChange = ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
