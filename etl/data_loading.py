@@ -12,14 +12,13 @@ def get_df_for_stage(stage, return_all_features=False,keep_only_aggs=False):
     important_columns = ['survival_time_in_months', 'death']
     if stage == "post":
         survival_analysis_df = survival_analysis_df[get_post_df(desc_df, important_columns, return_all_features)]
-        if return_all_features:
-            survival_analysis_df = add_aggs(survival_analysis_df, keep_only_aggs)
     elif stage == "pre":
         survival_analysis_df = survival_analysis_df[get_pre_df(desc_df, important_columns, return_all_features)]
     elif stage == "intra":
         survival_analysis_df = survival_analysis_df[get_intra_df(desc_df, important_columns, return_all_features)]
-        if return_all_features:
-            survival_analysis_df = add_aggs(survival_analysis_df, keep_only_aggs)
+
+    if stage != 'pre':
+        survival_analysis_df = add_aggs(survival_analysis_df,keep_only_aggs=keep_only_aggs)
     return survival_analysis_df
 
 

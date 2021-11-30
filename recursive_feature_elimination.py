@@ -76,7 +76,8 @@ if __name__ == '__main__':
     times = (3, 6, 12, 24)
     df = get_df_for_stage(stage, return_all_features=True, keep_only_aggs=True)
     X_train_validation, X_test, y_train_validation, y_test = impute_nan_values_and_split_to_train_test(df, seed=0)
-    clf = G
+    clf = GradientBoostingSurvivalAnalysis(loss="coxph", learning_rate=0.05, n_estimators=1000,
+                                           min_samples_split=5, min_samples_leaf=3, max_depth=3, random_state=0)
     # clf = CoxPHSurvivalAnalysis()
     print(f'{clf} feature elimination on {times}  months on {stage} dataset ')
     best_features = get_features_using_rfe(X_train_validation, y_train_validation, model=clf, times=times,
