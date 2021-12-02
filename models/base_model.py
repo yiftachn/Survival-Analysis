@@ -28,8 +28,6 @@ def _predict_on_cv(run_dict):
     return {'estimator': fitted_est, 'test_score': score}
 
 def death_cross_validate(estimator,X,y,n_splits=3,return_estimator = True,n_jobs=7):
-
-
     pool = Pool(processes=n_jobs)
     cv = StratifiedKFold(n_splits=n_splits,shuffle=True,random_state=SEED)
     indices = [x for x in cv.split(X,y['death'])]

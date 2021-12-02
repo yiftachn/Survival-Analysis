@@ -18,11 +18,11 @@ def get_df_for_stage(stage, return_all_features=False,keep_only_aggs=False):
         survival_analysis_df = survival_analysis_df[get_intra_df(desc_df, important_columns, return_all_features)]
 
     if stage != 'pre':
-        survival_analysis_df = add_aggs(survival_analysis_df,keep_only_aggs=keep_only_aggs)
+        survival_analysis_df = add_aggs(survival_analysis_df,stage = stage,keep_only_aggs=keep_only_aggs)
     return survival_analysis_df
 
 
-def add_aggs(df,keep_only_aggs=False):
+def add_aggs(df,stage:str,keep_only_aggs=False):
     df['resections_count'] = count_resections(df)
     df['anastamoses_count'] = count_anastamosis(df)
     df['complications_count'] = count_complications(df)
@@ -30,7 +30,8 @@ def add_aggs(df,keep_only_aggs=False):
     if keep_only_aggs:
         df = df.drop(config.RESECTIONS_FEATURES,axis=1)
         df = df.drop(config.ANASTAMOSES_FEATURES,axis=1)
-        df = df.drop(config.COMPLICATIONS_FEATURES,axis=1)
+        if stage == 'post':
+            df = df.drop(config.COMPLICATIONS_FEATURES,axis=1)
         df = df.drop(config.EXTRA_PARITONEAL_FEATURES,axis=1)
 
     return df

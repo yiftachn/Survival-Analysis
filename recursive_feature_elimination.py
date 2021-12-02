@@ -1,6 +1,6 @@
 import sys
 from multiprocessing import Pool
-
+import tqdm
 from etl.data_loading import get_df_for_stage, get_post_df
 from etl.train_test_split import impute_nan_values_and_split_to_train_test
 from etl.data_loading import remove_features_to_drop, load_and_clean_survival_analysis_df, load_and_clean_desc_df
@@ -78,6 +78,8 @@ if __name__ == '__main__':
     X_train_validation, X_test, y_train_validation, y_test = impute_nan_values_and_split_to_train_test(df, seed=0)
     clf = GradientBoostingSurvivalAnalysis(loss="coxph", learning_rate=0.05, n_estimators=1000,
                                            min_samples_split=5, min_samples_leaf=3, max_depth=3, random_state=0)
+    clf2 = RandomSurvivalForest(n_estimators=1000,
+                                           min_samples_split=20, min_samples_leaf=15)
     # clf = CoxPHSurvivalAnalysis()
     print(f'{clf} feature elimination on {times}  months on {stage} dataset ')
     best_features = get_features_using_rfe(X_train_validation, y_train_validation, model=clf, times=times,
